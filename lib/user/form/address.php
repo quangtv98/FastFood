@@ -1,56 +1,51 @@
-<?php
-    if(isset($_SESSION['id_user'])){
-        $id_user=$_SESSION['id_user'];
-        $stmt=$conn->prepare('SELECT * FROM user WHERE id_user=:id_user');
-        $stmt->execute(['id_user' => $id_user]);
-        $row=$stmt->fetch();
-?>
-<?php
-    $stmt=$conn->prepare('SELECT * FROM address WHERE id_user=:id_user');
-    $stmt->execute(['id_user' => $id_user]);
-    $result=$stmt->fetchALL(PDO::FETCH_ASSOC);
-?>
-<div class="container" id="bg-cart">
-    <div class="col-md-7 p-3 m-auto">
-        <div class="progress" style="height:7px">
-            <div class="progress-bar w-50"></div>
-        </div>
+<div class="container" id="top">
+    <div id="font-color">
+        <h3 class="text-uppercase text-center">Sổ địa chỉ</h3>
     </div>
-    <h5><strong>2. Địa chỉ giao hàng</strong></h5>
-    <h6>Chọn địa chỉ giao hàng có sẵn bên dưới :</h6>
-    <div class="d-flex row p-3">
-        <?php 
-        if(count($result) > 0){
-            foreach($result as $row_s){ 
-                $id_address = $row_s['id_address'];
+    <!-- Lấy thông tin cá nhân -->
+    <?php
+        if(isset($_SESSION['id_user'])){
+            $id_user=$_SESSION['id_user'];
+            $stmt=$conn->prepare('SELECT * FROM user WHERE id_user=:id_user');
+            $stmt->execute(['id_user' => $id_user]);
+            $row_s=$stmt->fetch();
+    ?>        <!-- Địa chỉ khác -->
+    <div class="col-md-12 p-3 border text-center mt-4" id="add-address" style="cursor: pointer">
+        <span class="text-primary"><i class="fas fa-plus"></i> Thêm địa chỉ</span>
+    </div>
+    <!-- Địa chỉ hiện tại (Đã có hoặc chưa) -->
+    <?php
+        $stmt=$conn->prepare('SELECT * FROM address WHERE id_user=:id_user');
+        $stmt->execute(['id_user' => $id_user]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) > 0){ ?>
+            <!-- Lấy ra tất cả địa chỉ có -->
+            <?php foreach($result as $row){
+                $id_address = $row['id_address'];
                 $page=$_GET['page']; ?>
-
-                <div class="col-md-6 border p-3 mb-3 <?php if($row_s['status']==1) echo 'border-success' ?>">
+                <div class="border p-3 mt-3">
                     <div class="clearfix">
-                            <strong><?php echo $row['username'] ?></strong>
-                            <?php if($row_s['status'] == 1){ ?><span class="float-right text-success"><small><i class="far fa-check-circle"></i> Địa chỉ mặc định</small></span><?php } ?>
-                    </div>
-                    <div class="py-2">
-                        <span class="font-italic">Địa chỉ : </span><?php echo $row_s['name_address'] ?>
-                        <br /> 
-                        <span class="font-italic">Điện thoại : </span><?php echo $row['phone'] ?>
-                    </div>
-                    <div class="">
-                        <a href="" class="btn btn-danger btn-sm px-3">Giao đến địa chỉ này</a>
-                        <a href="" class="btn btn-light btn-sm border px-3">Sửa</a>
-                        <?php if($row_s['status'] == 0){ ?>
-                        <a href="lib/user/process/del_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" onclick="return confirmDel()" class="btn btn-light btn-sm border px-3">Xóa</a>
+                        <strong><?php echo $row_s['username'] ?></strong>
+                        <?php if($row['status'] == 1){ ?>
+                            <span class="text-success"><small><i class="far fa-check-circle"></i> Địa chỉ mặc định</small></span>
                         <?php } ?>
+                        <a href="lib/user/process/update_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" class="float-right ml-3">Chỉnh sửa</a>
+                        <?php if($row['status'] == 0){ ?>
+                        <a href="lib/user/process/del_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" onclick="return confirmDel()" class="float-right text-danger">Xóa</a>
+                        <?php } ?>
+                    </div>
+                    <div class="pt-2">
+                        <span class="font-italic">Địa chỉ : </span><?php echo $row['name_address'] ?>
+                        <br /> 
+                        <span class="font-italic">Điện thoại : </span><?php echo $row_s['phone'] ?>
                     </div>
                 </div>
         <?php }}else{ ?>
-            <p>Sổ địa chỉ của bạn trống. Hãy thêm vào địa chỉ mới !!!</p>
-        <?php } ?>
-    </div>
-    <!-- Địa chỉ khác -->
-    <h6>Bạn muốn giao hàng đến địa chỉ khác ? <span class="text-primary" id="add-address" style="cursor: pointer">Thêm địa chỉ giao hàng mới</span></h6>
-    <div class="col-md-12 border p-3 mt-4" id="address_new" style="display: none">
-        <form action="lib/user/process" method="POST">
+            <p class="text-center mb-n1">Sổ địa chỉ của bạn trống. Hãy thêm vào địa chỉ mới !!!</p>
+    <?php }} ?>
+
+    <div class="col-md-12 border p-3 mt-3" id="address_new" style="display: none">
+        <form action="lib/user/process/add_address.php" method="POST">
             <div class="col-md-6 m-auto">
                 <div class="form-group form-inline">
                     <label for="city">Thành Phố / Tỉnh :</label>
@@ -82,25 +77,19 @@
                     <label for="home">Địa chỉ :</label>
                     <input name="home" id="home" class="form-control ml-auto w-75" placeholder="Số nhà, tên đường, ..." required>
                 </div>
-                <div class="form-group ml-auto w-75">
-                    <div class="custom-control custom-checkbox">
+                <div class="form-group form-inline ml-auto w-75">
+                    <div class="custom-control custom-checkbox ">
                         <input type="checkbox" class="custom-control-input" id="customCheck" name="active">
                         <label class="custom-control-label" for="customCheck">Chọn địa chỉ này làm địa chỉ mặc định</label>
                     </div>
                 </div>
                 <div class="text-center">
-                    <input type="submit" name="submit" class="btn btn-danger btn-sm px-4" value="Giao đến địa chỉ này">
+                    <input type="submit" name="submit" class="btn btn-danger btn-sm px-5" value="Thêm">
                 </div>
             </div>
         </form>
     </div>
 </div>
-<?php 
-    }else{
-        header("location:./index.php?page=signin&action=payment");
-        setcookie("error", "Bạn phải đăng nhập để thanh toán !!!", time()+1,"/","",0);
-    }
-?>
 
 <script>
     $(document).ready(function(){

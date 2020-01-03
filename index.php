@@ -75,7 +75,6 @@
                     </li>
                     <?php 
                     if (isset($_SESSION['id_user'])) {
-                        
                     // Kiểm tra xem có thông báo không
                     $id_user=$_SESSION['id_user'];
                     $stmt=$conn->prepare('SELECT id_notify FROM notify_user WHERE id_user=:id_user AND status="0"');
@@ -84,10 +83,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link btn btn-info btn-sm dropdown-toggle text-white active" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['username']; ?></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId" id="dropdown">
-                            <a class="dropdown-item d-flex" href="index.php?page=notify"><i class="fas fa-bell"><span class="font-weight-light"> Thông báo <span class="badge badge-info"><?php if($num > 0) echo $num ?></span></span></i></a>
-                            <a class="dropdown-item d-flex" href="index.php?page=view_bill"><i class="fas fa-file-invoice-dollar"><span class="font-weight-light"> Đơn hàng của tôi</span></i></a>
-                            <a class="dropdown-item d-flex" href="index.php?page=profile"><i class="fas fa-cog"><span class="font-weight-light"> Hồ sơ cá nhân</span></i></a>
-                            <a class="dropdown-item d-flex" href="lib/user/login/logout.php"><i class="fas fa-sign-out-alt"><span class="font-weight-light"> Đăng xuất</span></i></a>
+                            <a class="dropdown-item d-flex" href="index.php?page=notify"><span class="font-weight-light"> Thông báo <span class="badge badge-info"><?php if($num > 0) echo $num ?></span></span></a>
+                            <a class="dropdown-item d-flex" href="index.php?page=view_bill"><span class="font-weight-light"> Đơn hàng của tôi</span></a>
+                            <a class="dropdown-item d-flex" href="index.php?page=profile"><span class="font-weight-light"> Hồ sơ cá nhân</span></a>
+                            <a class="dropdown-item d-flex" href="index.php?page=address"><span class="font-weight-light"> Sổ địa chỉ</span></a>
+                            <a class="dropdown-item d-flex" href="lib/user/login/logout.php"><span class="font-weight-light"> Đăng xuất</span></a>
                         </div>
                     </li>
                     <?php } else {?>
@@ -129,6 +129,8 @@
                 case "view_bill" : include "./lib/cart/form/view_history_bill.php";
                     break;
                 case "profile" : include "./lib/user/form/profile.php";
+                    break;
+                case "address" : include "./lib/user/form/address.php";
                     break;
                 case "notify" : include "./lib/user/form/notify.php";
                     break;

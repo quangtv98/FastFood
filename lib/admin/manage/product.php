@@ -22,8 +22,9 @@
                         <div class="form-group">
                             <input type="text" name="name_type" class="form-control" value="<?php if(isset($_SESSION['name_type'])) echo $_SESSION['name_type'] ?>" placeholder="Tên loại sản phẩm" required>
                         </div>
-                        <div class="form-group">
-                            <input type="file" name="images" class="form-control" required>
+                        <div class="custom-file mb-3">
+                            <input type="file" name="images" class="custom-file-input" id="customFile" required>
+                            <label class="custom-file-label" for="customFile">Chọn hình ảnh</label>
                         </div>
                         <div>
                             <input type="submit" class="btn btn-danger btn-sm px-4 py-1" name="submit" value="Thêm loại sản phẩm">
@@ -62,8 +63,9 @@
                         <div class="form-group">
                             <input type="number" name="price" class="form-control" value="<?php if(isset($_SESSION['price'])) echo $_SESSION['price'] ?>" placeholder="Giá" required pattern="[0-9]">
                         </div>
-                        <div class="form-group">
-                            <input type="file" name="images" class="form-control" required>
+                        <div class="custom-file mb-3">
+                            <input type="file" name="images" class="custom-file-input" id="customFile" required>
+                            <label class="custom-file-label" for="customFile">Chọn hình ảnh</label>
                         </div>
                         <div class="form-group">
                             <textarea name="descript" class="form-control" placeholder="Mô tả" cols="30" rows="3"><?php if(isset($_SESSION['descript'])) echo $_SESSION['descript'] ?></textarea>
@@ -98,8 +100,9 @@
                                 <div class="form-group">
                                     <input type="number" name="price" class="form-control" placeholder="Giá" required pattern="[0-9]">
                                 </div>
-                                <div class="form-group">
-                                    <input type="file" name="images" class="form-control" required>
+                                <div class="custom-file mb-3">
+                                    <input type="file" name="images" class="custom-file-input" id="customFile" required>
+                                    <label class="custom-file-label" for="customFile">Chọn hình ảnh</label>
                                 </div>
                                 <div class="form-group">
                                     <textarea name="descript" class="form-control" placeholder="Mô tả" cols="30" rows="3"></textarea>
@@ -561,3 +564,11 @@
     </div>
 </div>
 <?php } ?>
+
+<script>
+// Lấy ra tên của ảnh
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
