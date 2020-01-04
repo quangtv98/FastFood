@@ -119,14 +119,14 @@
 
                     setcookie("success", "Xin chào - $username !!!", time()+1,"/","",0);
                     // Quay lại trang thanh toán nếu đang chọn thanh toán
-                    if(isset($_GET['action']) && $_GET['action']=="payment"){
-                        header("location:../../../index.php?page=payment");
+                    if(isset($_GET['action']) && $_GET['action']=="delivery_address"){
+                        header("location:../../../index.php?page=delivery_address");
                     }else{
                         header("location:../../../index.php");
                     }
                 }
             }else{
-                // Kiểm tra đăng nhập lỗi Nếu trên 3 lần thì phải chờ 3 phút
+                // Kiểm tra đăng nhập lỗi Nếu trên 3 lần thì phải chờ 5 phút
                 if(isset($_SESSION['login_error'][$email])){
                     $_SESSION['login_error'][$email]++;
                     if($_SESSION['login_error'][$email] > 3){
@@ -148,7 +148,7 @@
                 }
             }
         }else{
-            $term = 30 - floor($sub);
+            $term = 5 - floor($sub);
             header("location:../../../index.php?page=signin");
 			setcookie("error", "Vui lòng chờ thêm $term phút nữa để đăng nhập lại !!!", time()+1,"/","",0);
         }

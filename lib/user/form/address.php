@@ -1,4 +1,4 @@
-<div class="container" id="top">
+<div class="container" id="bg-cart">
     <div id="font-color">
         <h3 class="text-uppercase text-center">Sổ địa chỉ</h3>
     </div>
@@ -13,37 +13,7 @@
     <div class="col-md-12 p-3 border text-center mt-4" id="add-address" style="cursor: pointer">
         <span class="text-primary"><i class="fas fa-plus"></i> Thêm địa chỉ</span>
     </div>
-    <!-- Địa chỉ hiện tại (Đã có hoặc chưa) -->
-    <?php
-        $stmt=$conn->prepare('SELECT * FROM address WHERE id_user=:id_user');
-        $stmt->execute(['id_user' => $id_user]);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if(count($result) > 0){ ?>
-            <!-- Lấy ra tất cả địa chỉ có -->
-            <?php foreach($result as $row){
-                $id_address = $row['id_address'];
-                $page=$_GET['page']; ?>
-                <div class="border p-3 mt-3">
-                    <div class="clearfix">
-                        <strong><?php echo $row_s['username'] ?></strong>
-                        <?php if($row['status'] == 1){ ?>
-                            <span class="text-success"><small><i class="far fa-check-circle"></i> Địa chỉ mặc định</small></span>
-                        <?php } ?>
-                        <a href="lib/user/process/update_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" class="float-right ml-3">Chỉnh sửa</a>
-                        <?php if($row['status'] == 0){ ?>
-                        <a href="lib/user/process/del_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" onclick="return confirmDel()" class="float-right text-danger">Xóa</a>
-                        <?php } ?>
-                    </div>
-                    <div class="pt-2">
-                        <span class="font-italic">Địa chỉ : </span><?php echo $row['name_address'] ?>
-                        <br /> 
-                        <span class="font-italic">Điện thoại : </span><?php echo $row_s['phone'] ?>
-                    </div>
-                </div>
-        <?php }}else{ ?>
-            <p class="text-center mb-n1">Sổ địa chỉ của bạn trống. Hãy thêm vào địa chỉ mới !!!</p>
-    <?php }} ?>
-
+    
     <div class="col-md-12 border p-3 mt-3" id="address_new" style="display: none">
         <form action="lib/user/process/add_address.php" method="POST">
             <div class="col-md-6 m-auto">
@@ -89,6 +59,36 @@
             </div>
         </form>
     </div>
+    <!-- Địa chỉ hiện tại (Đã có hoặc chưa) -->
+    <?php
+        $stmt=$conn->prepare('SELECT * FROM address WHERE id_user=:id_user');
+        $stmt->execute(['id_user' => $id_user]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(count($result) > 0){ ?>
+            <!-- Lấy ra tất cả địa chỉ có -->
+            <?php foreach($result as $row){
+                $id_address = $row['id_address'];
+                $page=$_GET['page']; ?>
+                <div class="border p-3 mt-3">
+                    <div class="clearfix">
+                        <strong><?php echo $row_s['username'] ?></strong>
+                        <?php if($row['status'] == 1){ ?>
+                            <span class="text-success"><small><i class="far fa-check-circle"></i> Địa chỉ mặc định</small></span>
+                        <?php } ?>
+                        <a href="lib/user/process/update_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" class="float-right ml-3">Chỉnh sửa</a>
+                        <?php if($row['status'] == 0){ ?>
+                        <a href="lib/user/process/del_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" onclick="return confirmDel()" class="float-right text-danger">Xóa</a>
+                        <?php } ?>
+                    </div>
+                    <div class="pt-2">
+                        <span class="font-italic">Địa chỉ : </span><?php echo $row['name_address'] ?>
+                        <br /> 
+                        <span class="font-italic">Điện thoại : </span><?php echo $row_s['phone'] ?>
+                    </div>
+                </div>
+        <?php }}else{ ?>
+            <p class="text-center mb-n1">Sổ địa chỉ của bạn trống. Hãy thêm vào địa chỉ mới !!!</p>
+    <?php }} ?>
 </div>
 
 <script>

@@ -1,51 +1,47 @@
 <?php
     session_start();
     require_once "../../function/connect.php";
-    require_once "../../function/function.php";
-    if(isset($_POST['submit'])){
+    require_once "../../function/function.php";    
+    if(isset($_SESSION['id_user'])){
+        if(isset($_POST['submit'])){
 
-        // Lấy thông tin khách hàng
-        $username = addslashes($_POST['username']);
-        $email = addslashes($_POST['email']);
-        $phone = addslashes($_POST['phone']);
-        if(isset($_POST['address'])){
-            $address = $_POST['address'];
-        }
-        $ship = $_SESSION['ship'];
-        $totalprice = $_SESSION['totalprice'];
-        $current_date = current_datetime();
-        $created_at = $current_date['created_at_date'];
-        $today = $current_date['created_at_datetime'];
-        $time = date_format(date_create($today),"H");
-        
-        // Xem có sử dụng chương trình khuyến mãi nào không
-        if(isset($_SESSION['id_promo'])){
-            $id_promo = $_SESSION['id_promo'];
-        }else{
-            $id_promo = 0;
-        }
+            $id_user = $_SESSION['id_user'];
+            $username = $_SESSION['username'];
+            $id_address = $_SESSION['id_address'];
+            $totalprice = $_SESSION['totalprice'];            
+            
+            // Lấy ra số điện thoại của khách hàng
+            $stmt = $conn->prepare('SELECT phone FROM user WHERE id_user=:id_user');
+            $stmt->execute(['id_user' => $id_user]);
+            $row = $stmt->fetch();
+            $phone = $row['phone']; 
 
-        $_SESSION['username']=$username;
-        $_SESSION['email']=$email;
-        $_SESSION['phone']=$phone;
-        
-        // Kiểm tra thời gian mua hàng của khách hàng có trong giờ hoạt động
-        if($time >= 9 && $time <=22){
-            // Kiểm tra tổng tiền thanh toán của hóa đơn
-            if($totalprice >= 100000){
-                if(isset($_SESSION['id_user'])){
-                    //Cập nhập lại thông tin khách hàng
-                    $id_user=$_SESSION['id_user'];
-                    $query="UPDATE user SET username=:username,phone=:phone,address=:address WHERE id_user=:id_user";
-                    $stmt=$conn->prepare($query);
-                    $data=array('username'=>$username, 'phone'=>$phone, 'address'=>$address, 'id_user'=>$id_user);
-                    $stmt->execute($data);
+            // Lấy ra phí ship đang áp dụng ở thời điểm hiện tại
+            $stmt = $conn->prepare('SELECT * FROM ship WHERE status=:status');
+            $stmt->execute(['status' => 1]);
+            $row = $stmt->fetch();
+            $ship = $row['ship'];       
+            
+            // Lấy ra địa chỉ giao hàng của khách hàng
+            $stmt = $conn->prepare('SELECT * FROM address WHERE id_address=:id_address');
+            $stmt->execute(['id_address' => $id_address]);
+            $row = $stmt->fetch();
+            $address = $row['name_address'];
 
+            // Lấy ra mốc thời gian hiện tại . Ngày và giờ
+            $current_date = current_datetime();
+            $created_at = $current_date['created_at_date'];
+            $today = $current_date['created_at_datetime'];
+            $time = date_format(date_create($today),"H");
+            // Kiểm tra thời gian mua hàng của khách hàng có trong giờ hoạt động
+            if($time >= 9 && $time <=21){
+                // Kiểm tra tổng tiền thanh toán của hóa đơn
+                if($totalprice >= 100000){
                     // Tạo hóa đơn
-                    $query="INSERT INTO bill(id_user,username,email,phone,address,id_promo,ship,totalprice,created_at) 
-                    VALUES (:id_user, :username, :email, :phone, :address, :id_promo, :ship, :totalprice, :created_at)";
+                    $query="INSERT INTO bill(id_user,username,phone,address,ship,totalprice,created_at) 
+                    VALUES (:id_user, :username, :phone, :address, :ship, :totalprice, :created_at)";
                     $stmt=$conn->prepare($query);
-                    $data=array('id_user'=>$id_user, 'username'=>$username, 'email'=>$email, 'phone'=>$phone, 'address'=>$address, 'id_promo'=>$id_promo, 'ship'=>$ship, 'totalprice'=>$totalprice, 'created_at'=>$created_at);
+                    $data=array('id_user'=>$id_user, 'username'=>$username, 'phone'=>$phone, 'address'=>$address, 'ship'=>$ship, 'totalprice'=>$totalprice, 'created_at'=>$created_at);
                     $check=$stmt->execute($data);
 
                     if($check){
@@ -78,24 +74,15 @@
 
                             if($check_2){
                                 unset($_SESSION['cart']);
-                                unset($_SESSION['ship']);
+                                unset($_SESSION['id_address']);
                                 unset($_SESSION['totalprice']);
-                                unset($_SESSION['email']);
-                                unset($_SESSION['phone']);
-                                unset($_SESSION['address']);
-                                if(isset($_SESSION['home'])){
-                                    unset($_SESSION['home']);
-                                }
-                                if(isset($_SESSION['id_promo'])){
-                                    unset($_SESSION['id_promo']);
-                                }
 
                                 // Xóa đơn hàng trong bảng tạm
                                 $stmt=$conn->prepare('DELETE FROM cart WHERE id_user=:id_user');
                                 $stmt->execute(['id_user' => $id_user]);
                 
                                 header("location:../../../index.php?page=cart");
-                                setcookie("success", "Thanh toán thành công !!!", time()+1,"/","",0);
+                                setcookie("success", "Đặt hàng thành công.<br /> Cảm ơn quý khách đã mua hàng tại cửa hàng !!!", time()+1,"/","",0);
                             }
                             else{
                                 header("location:../../../index.php?page=payment");
@@ -109,17 +96,21 @@
                     }
                 }
                 else{
-                    header("location:../../../index.php?page=signin");
-                    setcookie("error", "Bạn phải đăng nhập để thanh toán !!!", time()+1,"/","",0);
+                    header("location:../../../index.php?page=payment");
+                    setcookie("error", "Hóa đơn của qúy khách phải trên 100,000 <u>đ</u>,<br /> Vui lòng mua thêm để được thanh toán !!!", time()+1,"/","",0);
                 }
             }else{
                 header("location:../../../index.php?page=payment");
-                setcookie("error", "Hóa đơn của qúy khách phải trên 100,000 <u>đ</u>, Vui lòng mua thêm để được thanh toán !!!", time()+1,"/","",0);
+                setcookie("error", "Thời gian giao hàng chỉ được áp dụng từ 9h sáng đến 21h tối !!!", time()+1,"/","",0);
             }
         }
         else{
             header("location:../../../index.php?page=payment");
-            setcookie("error", "Đơn hàng đi giao chỉ được áp dụng từ khung giờ 9h sáng đến 21h tối !!!", time()+1,"/","",0);
+            setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
         }
+    }
+    else{
+        header("location:../../../index.php");
+        setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
     }
 ?>

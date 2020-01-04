@@ -13,7 +13,6 @@
     </div>
 
     <!-- Quản lý đơn hàng -->
-        
     <?php                            
         // Tính tổng số cột
         $stmt=$conn->prepare('SELECT count(id_bill) AS total_record FROM bill');
@@ -34,8 +33,8 @@
                         <td>Ngày giao</td>
                         <td>Trạng thái</td>
                         <td width="50px">Cập nhật</td>
-                        <td width="50px">Xóa</td>
                         <td width="50px">Xem</td>
+                        <td width="50px">Xóa</td>
                     </tr>
                 </thead>
                 <tbody id="Table">
@@ -74,13 +73,13 @@
                         <td><?php echo $row['username'] ?></td>
                         <td><?php echo $row['phone'] ?></td>
                         <td><?php echo $row['address'] ?></td>
-                        <td><?php echo number_format($row['totalprice']) ?> <u>đ</u></td>
+                        <td><?php echo number_format(round($row['totalprice'], -3)) ?> <u>đ</u></td>
                         <td><?php echo date_format(date_create($row['created_at'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
                         <td width="100px"><?php if($row['updated_at'] == '') echo "chưa giao"; else echo date_format(date_create($row['updated_at'], new DateTimeZone('Asia/Bangkok')),"d-m-Y \L\ú\c H:i") ?></td>
                         <td><?php echo status_bill_admin($row['status']) ?></td>
                         <td><a href="" class="text-info <?php if($row['status'] == 4 || $row['status'] == 1) echo 'isDisabled' ?>" data-toggle="modal" data-target="#<?php echo 'update'.$row['id_bill'] ?>" data-toggle="tooltip" title="Cập nhật trạng thái đơn hàng"><i class="fa fa-pencil-square-o" aria-hidden="true"> <span class="d-none d-lg-inline-block"></span></i></a></td>
-                        <td><a href="lib/admin/process/del_bill.php?id_bill=<?php echo $row['id_bill'] ?>" class="text-danger" onclick="return confirmDel()"><i class="fa fa-trash-o px-1" aria-hidden="true"></i></a></td>
                         <td><a href="" class="text-success" data-toggle="modal" data-target="#<?php echo 'view'.$row['id_bill'] ?>" data-toggle="tooltip" title="Xem đơn hàng"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></td>
+                        <td><a href="lib/admin/process/del_bill.php?id_bill=<?php echo $row['id_bill'] ?>" class="text-danger" onclick="return confirmDel()"><i class="fa fa-trash-o px-1" aria-hidden="true"></i></a></td>
                     </tr>
                     <?php } ?>
                 </tbody>
@@ -146,18 +145,18 @@
                                 <td><?php echo $row_2['name_pro'] ?></td>
                                 <td><img src="./images/<?php echo $row_2['images'] ?>" class="img-thumbnail" alt=""></td>
                                 <td><?php echo $row['qty'] ?></td>
-                                <td><?php echo number_format($row['price'])." " ?><u>đ</u></td>
+                                <td><?php echo number_format(round($row['price'],-3))." " ?><u>đ</u></td>
                             </tr>
                             <?php }} ?>
                             <tr>
                                 <td></td>
                                 <td colspan="2">Trạng thái đơn hàng : </td>
                                 <td colspan="2">
-                                    <select name="status" class="form-control pl-5" id="">
-                                        <option value="0" <?php if($status==0) echo 'selected'; if($row['status'] > 0) echo 'disabled'  ?>>Chưa xử lý</option>
-                                        <option value="1" <?php if($status==1) echo 'selected'; if($row['status'] > 1) echo 'disabled'  ?>>Đã hủy</option>
-                                        <option value="2" <?php if($status==2) echo 'selected'; if($row['status'] > 2) echo 'disabled'  ?>>Đã xác nhận</option>
-                                        <option value="3" <?php if($status==3) echo 'selected'; if($row['status'] > 3) echo 'disabled'  ?>>Đang giao</option>
+                                    <select name="status" class="form-control pl-3">
+                                        <option value="0" <?php if($status==0) echo 'selected'; if($status > 0) echo 'disabled'  ?>>Chưa xử lý</option>
+                                        <option value="1" <?php if($status==1) echo 'selected'; if($status > 1) echo 'disabled'  ?>>Đã hủy</option>
+                                        <option value="2" <?php if($status==2) echo 'selected'; if($status > 2) echo 'disabled'  ?>>Đã xác nhận</option>
+                                        <option value="3" <?php if($status==3) echo 'selected'; if($status > 3) echo 'disabled'  ?>>Đang giao</option>
                                         <option value="4" <?php if($status==4) echo 'selected' ?>>Đã hoàn tất</option>
                                     </select>
                                 </td>
@@ -197,22 +196,18 @@
                 <!-- Modal body -->
                 <div class="col-md-12 modal-body text-center">
                     <div class="d-flex row">
-                        <div class="col-md-4 border p-3">
+                        <div class="col-md-4 border text-left p-3">
                             <?php $stmt = $conn->prepare('SELECT * FROM bill WHERE id_bill=:id_bill');
                                 $stmt->execute(['id_bill' => $id_bill]);
                                 $row=$stmt->fetch(); ?>
-                            <div class="text-left">
-                                <label for="username">Họ và tên : </label>
-                                <input type="text" id="username" disabled class="form-control text-center" value="<?php echo $row['username'] ?>" required="required">
-                            </div>
-                            <div class="text-left" >
-                                <label for="phone">Số điện thoại : </label>
-                                <input type="text" id="phone"disabled class="form-control text-center" value="<?php echo $row['phone'] ?>" required="required">
-                            </div>
-                            <div class="text-left" >
-                                <label for="address">Địa chỉ : </label>
-                                <textarea id="address"disabled class="form-control text-center" id="" cols="30" rows="3" required="required"><?php echo $row['address'] ?></textarea>
-                            </div>
+                                <span>Địa chỉ giao hàng</span>
+                                <hr>
+                                <strong><?php echo $row['username'] ?></strong>
+                                <div class="py-3">
+                                    <span class="font-italic">Điện thoại : </span><?php echo $row['phone'] ?>
+                                    <p></p>
+                                    <span class="font-italic mt-3">Địa chỉ : </span><?php echo $row['address'] ?>
+                                </div>
                         </div>
                         <div class="col-md-8 border p-3">
                         <!-- <p>Phần ăn chính</p> -->
@@ -246,7 +241,7 @@
                                     <td><?php echo $row_2['name_pro'] ?></td>
                                     <td><img src="./images/<?php echo $row_2['images'] ?>" class="img-thumbnail" alt=""></td>
                                     <td><?php echo $row['qty'] ?></td>
-                                    <td><?php echo number_format($row['price']) ?></td>
+                                    <td><?php echo number_format(round($row['price'], -3)) ?></td>
                                 </tr>
                                 <?php }} ?>
                                 <?php $stmt = $conn->prepare('SELECT ship,totalprice FROM bill WHERE id_bill=:id_bill');
@@ -262,7 +257,7 @@
                                 <tr>
                                     <td colspan="3"></td>
                                     <td class="text-right">Tổng tiền : </td>
-                                    <td><?php echo number_format($totalprice) ?> <u>đ</u></td>
+                                    <td><?php echo number_format(round($totalprice, -3)) ?> <u>đ</u></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2"></td>

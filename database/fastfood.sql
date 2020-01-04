@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 03/01/2020 22:03:03
+ Date: 05/01/2020 17:35:02
 */
 
 SET NAMES utf8mb4;
@@ -27,15 +27,16 @@ CREATE TABLE `address`  (
   `name_address` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` tinyint(1) UNSIGNED ZEROFILL NULL DEFAULT 0,
   PRIMARY KEY (`id_address`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of address
 -- ----------------------------
 INSERT INTO `address` VALUES (1, 2, '206 / 30D, Đường Trần Bá Giao, Phường 05, Quận Gò Vấp, TP Hồ Chí Minh, Việt Nam', 1);
 INSERT INTO `address` VALUES (2, 2, '56, Đường Đông Bắc, Phường Tân Chánh Hiệp, Quận 12, TP Hồ Chí Minh, Việt Nam', 0);
-INSERT INTO `address` VALUES (3, 1, '183, Lê Duẩn, Xã Hòa Châu, Huyện Hòa Vang, TP Đà Nẵng, Việt Nam', 0);
+INSERT INTO `address` VALUES (3, 1, '183, Lê Duẩn, Xã Hòa Châu, Huyện Hòa Vang, TP Đà Nẵng, Việt Nam', 1);
 INSERT INTO `address` VALUES (4, 2, '112, Võ Oanh, Phường 25, Quận Bình Thạnh, TP Hồ Chí Minh, Việt Nam', 0);
+INSERT INTO `address` VALUES (5, 3, '235, Đường Lý Tự Trọng, Phường 06, Quận Tân Bình, TP Hồ Chí Minh, Việt Nam', 1);
 
 -- ----------------------------
 -- Table structure for bill
@@ -46,16 +47,19 @@ CREATE TABLE `bill`  (
   `id_user` int(11) NULL DEFAULT NULL,
   `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `address` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `id_promo` tinyint(1) NULL DEFAULT NULL,
   `ship` decimal(10, 0) NULL DEFAULT NULL,
   `totalprice` decimal(10, 0) NULL DEFAULT NULL,
   `created_at` date NULL DEFAULT NULL,
   `updated_at` datetime(0) NULL DEFAULT NULL,
   `status` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id_bill`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of bill
+-- ----------------------------
+INSERT INTO `bill` VALUES (1, 2, 'Customer', '0313271812', '206 / 30D, Đường Trần Bá Giao, Phường 05, Quận Gò Vấp, TP Hồ Chí Minh, Việt Nam', 11000, 105150, '2020-01-05', NULL, 2);
 
 -- ----------------------------
 -- Table structure for bill_detail
@@ -68,7 +72,13 @@ CREATE TABLE `bill_detail`  (
   `qty` int(11) NULL DEFAULT NULL,
   `price` decimal(10, 0) NULL DEFAULT NULL,
   PRIMARY KEY (`id_detail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of bill_detail
+-- ----------------------------
+INSERT INTO `bill_detail` VALUES (1, 1, 2, 1, 35000);
+INSERT INTO `bill_detail` VALUES (2, 1, 5, 1, 65000);
 
 -- ----------------------------
 -- Table structure for book_party
@@ -133,13 +143,16 @@ CREATE TABLE `cart`  (
   `id_pro` int(11) NULL DEFAULT NULL,
   `qty` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_temp`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES (1, 2, 3, 1);
-INSERT INTO `cart` VALUES (2, 2, 1, 1);
+INSERT INTO `cart` VALUES (8, 2, 1, 1);
+INSERT INTO `cart` VALUES (9, 1, 1, 1);
+INSERT INTO `cart` VALUES (10, 3, 1, 2);
+INSERT INTO `cart` VALUES (11, 3, 3, 1);
+INSERT INTO `cart` VALUES (12, 2, 3, 2);
 
 -- ----------------------------
 -- Table structure for city
@@ -372,7 +385,12 @@ CREATE TABLE `promotions`  (
   `date_end` date NULL DEFAULT NULL,
   `status` tinyint(1) NULL DEFAULT 1,
   PRIMARY KEY (`id_promo`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of promotions
+-- ----------------------------
+INSERT INTO `promotions` VALUES (1, 'Mừng năm mới', 2, 9, '2020-01-05', '2020-01-09', 2);
 
 -- ----------------------------
 -- Table structure for sale_product

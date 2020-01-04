@@ -18,22 +18,10 @@
     <script src="js/gijgo.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
     
-    <!-- Xác nhận bắt đầu chương trình khuyến mãi và sẽ kết thúc chương trình cũ -->
-    <script type="text/javascript">
-        function confirmEnd() {
-            return confirm("Hãy đảm bào rằng các chương trình đang diễn ra đã kết thúc !!!")
-        }
-    </script>
     <!-- Xác nhận thao tác xóa  -->
     <script type="text/javascript">
         function confirmDel() {
             return confirm("Bạn chắc chắn muốn xóa !!!")
-        }
-    </script>
-    <!-- Xác nhận thao tác thanh toán  -->
-    <script type="text/javascript">
-        function confirmPayment() {
-            return confirm("Bạn chắc chắn thông tin trên chính xác ?\nVà nhận hàng theo địa chỉ trên !!!")
         }
     </script>
     <!-- Hàm bổ trợ của boostrap -->

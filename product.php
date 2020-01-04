@@ -89,6 +89,7 @@
                     }
                 }
             }
+            $price = floor(number_format($price))*1000;
             // id_pro đã mất nên tạo lại. Chưa tìm ra nguyên nhân
             $id_pro = $row['id_pro'];
             ?>
@@ -107,7 +108,7 @@
                     <div class="card-buy">
                         <p class="text-uppercase"><?php echo $row['name_pro'] ?></p>
                         <p><del class="text-black-50"><?php if(isset($Initial_price[$id_pro])) echo number_format($Initial_price[$id_pro]) ?></del>
-                        <strong class="text-success ml-2"><?php echo number_format(round($price,-3)) ?><u>đ</u></strong></p>
+                        <strong class="text-success ml-2"><?php echo number_format($price) ?><u>đ</u></strong></p>
                         <p><a class="btn btn-danger btn-sm px-3" href="" data-toggle="modal" data-target="<?php echo '#product'.$id_pro ?>" data-toggle="tooltip" title="Mua và thanh toán">Đặt mua</a></p>
                     </div>
                 </div>

@@ -1,12 +1,11 @@
-<div class="container text-center" id="view">
-
-    <div class="text-center" id="top">
+<div class="container text-center" id="bg-cart">
+    <?php require_once "lib/function/function.php"; ?>
+    <div class="text-center">
         <h3 class="text-uppercase" id="font-color">Lịch sử đơn hàng</h3>
     </div>
-    <?php include "lib/function/notify.php" ?>
 
     <div class="mt-4">
-        <table class="table table-hover shadow">
+        <table class="table shadow">
             <thead>
                 <th>Mã Đơn hàng</th>
                 <th>Ngày mua</th>
@@ -78,7 +77,6 @@
                     $stmt_s=$conn->prepare('SELECT * FROM bill WHERE id_bill=:id_bill');
                     $stmt_s->execute(['id_bill' => $id_bill]);
                     $row_s=$stmt_s->fetch();
-                    $id_promo=$row_s['id_promo'];
                     $ship=$row_s['ship'];
                     $totalprice=$row_s['totalprice']; ?>
 
@@ -127,51 +125,22 @@
                             </tr>
                             <tr><td colspan="6" class="py-2"></td></tr>
                             <?php } ?>
-                            <tr>
-                                <td colspan="4" height="40px"></td>
-                                <td>Phí vận chuyển:</td>
-                                <td><?php echo number_format($ship) ?></td>
-                            </tr>
-                            <?php
-                            $origin_price+=$ship;
-                            if($id_promo != 0){
-                                $stmt=$conn->prepare('SELECT type_promo,value FROM promotions WHERE id_promo=:id_promo');
-                                $stmt->execute(['id_promo' => $id_promo]);
-                                $row=$stmt->fetch();
-                                $type_promo=$row['type_promo'];
-                                $value=$row['value'];
-                                if($type_promo == '0'){
-                                        $sub_total += $value;
-                                    }
-                                    else if($type_promo == '1'){
-                                        $sub_total = $origin_price * $value / 100;
-                                        $sub_total = round($sub_total,-3);
-                                    }
-                                    else{
-                                        $ship = $value;
-                                        $stmt=$conn->prepare('SELECT * FROM ship');
-                                        $stmt->execute();
-                                        $row_s=$stmt->fetch();
-                                        $sub_total = $row_s['ship'];
-                                    } ?>
-                            <tr>
-                                <td colspan="4" height="40px"></td>
-                                <td>Đã giảm:</td>
-                                <td><?php echo "<del>".number_format($sub_total)."</del>" ?></td>
-                            </tr>
-                            <?php } ?>
-                            <tr>
-                                <td colspan="4" height="40px"></td>
-                                <td>Tổng tiền:</td>
-                                <td><?php echo number_format($totalprice) ?> <u>đ</u></td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" height="40px"></td>
-                                <td>Trạng thái đơn hàng : </td>
-                                <td><?php echo status_bill_user($status) ?></td>
-                            </tr>
                         </tbody>
                     </table>
+                    <div class="border p-3">
+                        <div class="clearfix px-3">
+                            <span class="float-left">Phí vận chuyển</span>
+                            <span class="float-right"><?php echo number_format($ship) ?> <u>đ</u></span>
+                        </div>
+                        <div class="clearfix px-3">
+                            <span class="float-left">Thành tiền</span>
+                            <span class="float-right text-danger lead"><?php echo number_format(round($totalprice,-3)) ?> <u>đ</u></span>
+                        </div>
+                        <div class="clearfix px-3">
+                            <span class="float-left">Trạng thái đơn hàng</span>
+                            <span class="float-right text-primary"><?php echo status_bill_user($status) ?></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

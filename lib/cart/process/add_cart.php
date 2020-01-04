@@ -6,10 +6,6 @@
         $id_pro=$_GET['id_pro'];
         $qty = addslashes($_POST['qty']);
         
-        if(isset($_SESSION['id_type'])){
-            $id_type=$_SESSION['id_type'];
-        }
-
         if(isset($_SESSION['cart'][$id_pro])){
             $_SESSION['cart'][$id_pro]['qty']+=$qty;
             
@@ -18,29 +14,20 @@
                 $qty=$_SESSION['cart'][$id_pro]['qty'];
                 $id_user=$_SESSION['id_user'];
                 $stmt=$conn->prepare('UPDATE cart SET qty=:qty WHERE id_pro=:id_pro AND id_user=:id_user');
-                $stmt->execute(['id_user' => $id_user, 'id_pro' => $id_pro, 'qty' => $qty]);
+                $stmt->execute(['qty' => $qty, 'id_pro' => $id_pro, 'id_user' => $id_user]);
             }
 
-                // Nếu người dùng chọn thanh toán
+            // Nếu người dùng chọn thanh toán
             if(isset($_POST['submit_payment'])){
                 if(isset($_SESSION['id_user'])){
-                    header("location:../../../index.php?page=payment");
+                    header("location:../../../index.php?page=delivery_address");
                 }else{
-                    header("location:../../../index.php?page=signin&action=payment");
+                    header("location:../../../index.php?page=signin&action=delivery_address");
                     setcookie("error", "Bạn phải đăng nhập để thanh toán !!!", time()+1,"/","",0);
                 }
             }
             else{
-                setcookie("success", "Đã thêm sản phẩm vào giỏ hàng !!!", time()+1,"/","",0);
-                // Nếu người dùng chọn thêm vào giỏ hàng
-                // if(isset($_GET['delivery'])){
-                //     setcookie("success", "Đã thêm sản phẩm vào giỏ hàng !!!", time()+1,"/","",0);
-                //     // header("location:../../../index.php?page=delivery");
-                // }
-                // else{
-                //     setcookie("success", "Đã thêm sản phẩm vào giỏ hàng !!!", time()+1,"/","",0);
-                //     // header("location:../../../index.php?page=product&id_type=$id_type");
-                // } ?>
+                setcookie("success", "Đã thêm sản phẩm vào giỏ hàng !!!", time()+1,"/","",0); ?>
                 <script>
                         window.history.back();
                 </script>
@@ -50,7 +37,7 @@
             // Nếu chưa có sản phẩm nào trong giỏ hàng
             $query="SELECT name_pro,price,images FROM product WHERE id_pro=:id_pro";
             $stmt=$conn->prepare($query);
-            $stmt->execute(array('id_pro' => $id_pro));
+            $stmt->execute(['id_pro' => $id_pro]);
             $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $row) {
                 $_SESSION['cart'][$id_pro]=array(
@@ -65,15 +52,15 @@
                 $id_user=$_SESSION['id_user'];
                 $query="INSERT INTO cart(id_user, id_pro, qty) VALUES (:id_user, :id_pro, :qty)";
                 $stmt=$conn->prepare($query);
-                $stmt->execute(['id_user' => $id_user, 'id_pro' => $id_pro, 'qty' => '1']);
+                $stmt->execute(['id_user' => $id_user, 'id_pro' => $id_pro, 'qty' => $qty]);
             }
             
             // Nếu người dùng chọn thanh toán
             if(isset($_POST['submit_payment']) || isset($_GET['action'])){
                 if(isset($_SESSION['id_user'])){
-                    header("location:../../../index.php?page=payment");
+                    header("location:../../../index.php?page=delivery_address");
                 }else{
-                    header("location:../../../index.php?page=signin&action=payment");
+                    header("location:../../../index.php?page=signin&action=delivery_address");
                     setcookie("error", "Bạn phải đăng nhập để thanh toán !!!", time()+1,"/","",0);
                 }
             }
@@ -94,7 +81,7 @@
                 <?php }
         }
     }else{
-        header("location:../../../index.php?page=product&id_type=$id_type");
+        header("location:../../../index.php?page=product");
         setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
     }
 ?>

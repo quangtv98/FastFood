@@ -51,10 +51,6 @@ body{
     width: 180px;
 }
 
-.w-input{
-    width: 220px;
-}
-
 #button2{
     width: 160px;
 }
@@ -110,8 +106,13 @@ body{
 }
 
 #bg-cart{
-    min-height: 400px;
+    min-height: 500px;
     margin-top: 80px;
+}
+
+#payment{
+    margin-top: 30px;
+    min-height: 500px;
 }
 
 #bg-cart-history{
@@ -220,4 +221,13 @@ body{
     color: currentColor;
     cursor: not-allowed;
     opacity: 0.3;
+}
+
+.zoom {
+    transition: transform .2s; /* Animation */
+    margin: 0 auto;
+}
+
+.zoom:hover {
+    transform: scale(1.15);
 }

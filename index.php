@@ -124,6 +124,8 @@
                     break;
                 case "book_party" : include "./lib/service/form/book_party.php";
                     break;
+                case "delivery_address" : include "./lib/cart/form/delivery_address.php";
+                    break;
                 case "payment" : include "./lib/cart/form/payment.php";
                     break;
                 case "view_bill" : include "./lib/cart/form/view_history_bill.php";

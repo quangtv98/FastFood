@@ -7,7 +7,10 @@
             $id_city = $_POST['city'];
             $id_district = $_POST['district'];
             $id_ward = $_POST['ward'];
-            $name_home = $_POST['home'];
+            $name_home = trim(rtrim($_POST['home'], ','));
+            if(isset($_GET['page'])){
+                $page = $_GET['page'];
+            }
 
             // lấy ra tên thành phố
             $stmt = $conn->prepare('SELECT name FROM city WHERE id_city=:id_city');
@@ -47,10 +50,21 @@
             $stmt = $conn->prepare('INSERT INTO address(id_user, name_address, status) VALUES (:id_user, :name_address, :status)');
             $check = $stmt->execute(['id_user' => $id_user, 'name_address' => $name_address, 'status' => $status]);
             if($check){
-                header("location:../../../index.php?page=profile");
+
+                // Nếu đang ở sổ địa chỉ quay về sổ địa chỉ nếu đang thanh toán thì quay về chọn địa chit thanh toán
+                if(isset($_GET['page']) && $_GET['page'] == "delivery_address"){
+                    header("location:../../../index.php?page=delivery_address");
+                }else{
+                    header("location:../../../index.php?page=address");
+                }
                 setcookie("success", "Thêm địa chỉ mới thành công !!!", time()+1,"/","",0);
             }else{
-                header("location:../../../index.php?page=profile");
+                // Nếu đang ở sổ địa chỉ quay về sổ địa chỉ nếu đang thanh toán thì quay về chọn địa chit thanh toán
+                if(isset($_GET['page']) && $_GET['page'] == "delivery_address"){
+                    header("location:../../../index.php?page=delivery_address");
+                }else{
+                    header("location:../../../index.php?page=address");
+                }
                 setcookie("error", "Thêm địa chỉ mới thất bại !!!", time()+1,"/","",0);
             }
         }
