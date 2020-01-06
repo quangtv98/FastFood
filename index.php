@@ -128,7 +128,9 @@
                     break;
                 case "payment" : include "./lib/cart/form/payment.php";
                     break;
-                case "view_bill" : include "./lib/cart/form/view_history_bill.php";
+                case "view_bill" : include "./lib/cart/form/view_bill_history.php";
+                    break;
+                case "view_bill_detail" : include "./lib/cart/form/view_bill_detail.php";
                     break;
                 case "profile" : include "./lib/user/form/profile.php";
                     break;
