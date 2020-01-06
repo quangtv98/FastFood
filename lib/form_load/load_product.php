@@ -2,7 +2,7 @@
     session_start();
     require_once "../function/connect.php";
     $productNewCount = $_POST['productNewCount'];
-    $id_type=$_SESSION['id_type'];
+    $id_type=$_GET['id_type'];
     $stmt=$conn->prepare('SELECT * FROM product WHERE id_type=:id_type AND status="1" LIMIT :limit');
     $stmt->bindValue(':limit', (int)$productNewCount, PDO::PARAM_INT);
     $stmt->bindValue(':id_type', (int)$id_type, PDO::PARAM_INT);

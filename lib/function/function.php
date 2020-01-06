@@ -48,15 +48,15 @@ require_once "connect.php";
     // Trạng thái của đơn hàng phía user
     function status_bill_user($status){
         switch($status){
-            case 0 : return "Đang chờ xử lý";
+            case 0 : return "Đơn hàng đang chờ xử lý";
                 break;
-            case 1 : return "Đã hủy";
+            case 1 : return "Đơn hàng bị đã hủy";
                 break;
-            case 2 : return "Đã xác nhận đơn hàng";
+            case 2 : return "Đơn hàng đã được xác nhận";
                 break;
-            case 3 : return "Đang tiến hành giao";
+            case 3 : return "Đơn hàng đang đi giao";
                 break;
-            case 4 : return "Đã hoàn tất";
+            case 4 : return "Giao hàng thành công";
                 break;
             default : return "Có lỗi xảy ra !!!";
         }

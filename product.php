@@ -28,8 +28,6 @@
 <?php
     if(isset($_GET['id_type'])){
         $id_type=$_GET['id_type'];
-        // Dùng cho sự kiện load thêm product
-        $_SESSION['id_type']=$id_type;
     }
 ?>
 <div class="container" id="view">
@@ -90,8 +88,6 @@
                 }
             }
             $price = floor(number_format($price))*1000;
-            // id_pro đã mất nên tạo lại. Chưa tìm ra nguyên nhân
-            $id_pro = $row['id_pro'];
             ?>
         <div class="col-md-4 p-3">
             <div class="card shadow">
@@ -106,10 +102,10 @@
                 </div>
                 <div class="card-body rounded-bottom bg-white">
                     <div class="card-buy">
-                        <p class="text-uppercase"><?php echo $row['name_pro'] ?></p>
+                        <p class="text-uppercase" style="height: 50px"><?php echo $row['name_pro'] ?></p>
                         <p><del class="text-black-50"><?php if(isset($Initial_price[$id_pro])) echo number_format($Initial_price[$id_pro]) ?></del>
                         <strong class="text-success ml-2"><?php echo number_format($price) ?><u>đ</u></strong></p>
-                        <p><a class="btn btn-danger btn-sm px-3" href="" data-toggle="modal" data-target="<?php echo '#product'.$id_pro ?>" data-toggle="tooltip" title="Mua và thanh toán">Đặt mua</a></p>
+                        <span><a class="btn btn-danger btn-sm px-3" href="" data-toggle="modal" data-target="<?php echo '#product'.$id_pro ?>" data-toggle="tooltip" title="Mua và thanh toán">Đặt mua</a></span>
                     </div>
                 </div>
             </div>
@@ -157,7 +153,7 @@
                 var productCount = 6;
                 $("button").click(function(){
                         productCount+=6;
-                    $("#product").load("lib/form_load/load_product.php", {
+                    $("#product").load("lib/form_load/load_product.php?id_type=<?php echo $id_type ?>", {
                         productNewCount: productCount
                     });
                 });

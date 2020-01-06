@@ -48,22 +48,12 @@
                         // Lấy ra hóa đơn vừa mới insert vào
                         $id_bill=$conn->lastInsertId();
 
-                        // Lấy thông tin đơn hàng
+                        // Lấy thông tin đưa vào chi tiết đơn hàng
                         if(isset($_SESSION['cart'])){
-                            $query="SELECT id_pro,price FROM product WHERE id_pro IN (";
-                                foreach($_SESSION['cart'] as $id_pro => $value) { 
-                                    $query.=$id_pro.","; 
-                                } 
-                            $query=substr($query, 0, -1).")";
-                            $stmt=$conn->prepare($query);
-                            $stmt->execute();
-                            $result_1=$stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                            foreach($result_1 as $row){
+                            foreach($_SESSION['cart'] as $id_pro => $row){
                                 // Lấy ra thông tin sản phẩm có trong giỏ hàng
-                                $id_pro=$row['id_pro'];
                                 $qty=$_SESSION['cart'][$id_pro]['qty'];
-                                $price=$row['price'];
+                                $price=$_SESSION['cart'][$id_pro]['price'];
 
                                 // Lưu chi tiết đơn hàng
                                 $query_2="INSERT INTO bill_detail(id_bill,id_pro,qty,price) VALUES (:id_bill,:id_pro,:qty,:price)";

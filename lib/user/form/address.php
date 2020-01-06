@@ -75,8 +75,8 @@
                         <?php if($row['status'] == 1){ ?>
                             <span class="text-success"><small><i class="far fa-check-circle"></i> Địa chỉ mặc định</small></span>
                         <?php } ?>
-                        <a href="lib/user/process/update_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" class="float-right ml-3">Chỉnh sửa</a>
                         <?php if($row['status'] == 0){ ?>
+                        <a href="lib/user/process/choose_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" class="float-right ml-3">Mặc định</a>
                         <a href="lib/user/process/del_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" onclick="return confirmDel()" class="float-right text-danger">Xóa</a>
                         <?php } ?>
                     </div>

@@ -39,7 +39,6 @@
                             </div>
                             <div class="">
                                 <a href="lib/cart/process/delivery_address.php?id_address=<?php echo $id_address ?>" class="btn btn-danger btn-sm px-3">Giao đến địa chỉ này</a>
-                                <a href="" class="btn btn-light btn-sm border px-3">Sửa</a>
                                 <?php if($address['status'] == 0){ ?>
                                 <a href="lib/user/process/del_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" onclick="return confirmDel()" class="btn btn-light btn-sm border px-3">Xóa</a>
                                 <?php } ?>

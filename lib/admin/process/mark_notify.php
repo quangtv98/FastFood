@@ -5,8 +5,8 @@
         $id_staff=$_SESSION['id_staff'];
         $id_notify=$_GET['id_notify'];
         //Đánh dấu là đã đọc thông báo
-        $stmt=$conn->prepare('UPDATE notify_detail SET status="1" WHERE id_notify=:id_notify AND id_staff=:id_staff');
-        $check=$stmt->execute(['id_notify'=>$id_notify, 'id_staff'=>$id_staff]);
+        $stmt=$conn->prepare('UPDATE notify_staff SET status=:status WHERE id_notify=:id_notify AND id_staff=:id_staff');
+        $check=$stmt->execute(['status'=>1, 'id_notify'=>$id_notify, 'id_staff'=>$id_staff]);
 
         if($check){
             header("location:../../../admin.php?action=notify");

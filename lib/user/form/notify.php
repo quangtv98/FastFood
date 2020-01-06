@@ -1,5 +1,5 @@
-<div class="container text-center p-0" id="view">
-    <div class="text-center pb-3" id="top">
+<div class="container text-center p-0" id="bg-cart">
+    <div class="text-center pb-3">
         <h3 class="text-uppercase" id="font-color">Thông báo</h3>
     </div>
     <?php include "lib/function/notify.php" ?>
@@ -12,12 +12,12 @@
             if($num > 0){
             $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
-        <table class="col-md-12 table-hover shadow">
+        <table class="table">
             <thead>
                 <th width="100px">Ngày gửi</th>
-                <th width="200px">Tiêu đề</th>
-                <th width="200px">Nội dung</th>
-                <th width="200px">Thao tác</th>
+                <th width="150px">Tiêu đề</th>
+                <th width="250px">Nội dung</th>
+                <th width="150px">Thao tác</th>
                 <th width="50px">Xóa</th>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                 <tr>
                     <td><?php echo date_format(date_create($row['date_send'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
                     <td><?php echo $row['title'] ?></td>
-                    <td><?php echo $row['message'] ?></td>
+                    <td class="text-left"><?php echo $row['message'] ?></td>
                     <?php if($row_s['status'] == 0){ ?>
                     <td><a href="lib/user/process/mark_notify.php?id_notify=<?php echo $row['id_notify'] ?>" class="text-info">Đánh dấu là đã đọc</a></td>
                     <?php }else{ ?>

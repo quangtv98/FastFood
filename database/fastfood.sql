@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 05/01/2020 17:35:02
+ Date: 07/01/2020 20:31:27
 */
 
 SET NAMES utf8mb4;
@@ -59,7 +59,7 @@ CREATE TABLE `bill`  (
 -- ----------------------------
 -- Records of bill
 -- ----------------------------
-INSERT INTO `bill` VALUES (1, 2, 'Customer', '0313271812', '206 / 30D, Đường Trần Bá Giao, Phường 05, Quận Gò Vấp, TP Hồ Chí Minh, Việt Nam', 11000, 105150, '2020-01-05', NULL, 2);
+INSERT INTO `bill` VALUES (1, 2, 'Customer', '0313271812', '206 / 30D, Đường Trần Bá Giao, Phường 05, Quận Gò Vấp, TP Hồ Chí Minh, Việt Nam', 11000, 101000, '2020-01-05', '2020-01-07 00:09:51', 4);
 
 -- ----------------------------
 -- Table structure for bill_detail
@@ -77,8 +77,8 @@ CREATE TABLE `bill_detail`  (
 -- ----------------------------
 -- Records of bill_detail
 -- ----------------------------
-INSERT INTO `bill_detail` VALUES (1, 1, 2, 1, 35000);
-INSERT INTO `bill_detail` VALUES (2, 1, 5, 1, 65000);
+INSERT INTO `bill_detail` VALUES (1, 1, 2, 1, 31000);
+INSERT INTO `bill_detail` VALUES (2, 1, 5, 1, 59000);
 
 -- ----------------------------
 -- Table structure for book_party
@@ -182,7 +182,7 @@ CREATE TABLE `combo_detail`  (
   `id_pro` int(11) NULL DEFAULT NULL,
   `qty` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id_com_detail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of combo_detail
@@ -190,6 +190,20 @@ CREATE TABLE `combo_detail`  (
 INSERT INTO `combo_detail` VALUES (1, 5, 1, 1);
 INSERT INTO `combo_detail` VALUES (2, 5, 3, 1);
 INSERT INTO `combo_detail` VALUES (3, 5, 4, 1);
+INSERT INTO `combo_detail` VALUES (4, 8, 1, 4);
+INSERT INTO `combo_detail` VALUES (5, 8, 4, 1);
+INSERT INTO `combo_detail` VALUES (6, 23, 10, 1);
+INSERT INTO `combo_detail` VALUES (7, 23, 3, 1);
+INSERT INTO `combo_detail` VALUES (8, 24, 7, 3);
+INSERT INTO `combo_detail` VALUES (9, 24, 14, 1);
+INSERT INTO `combo_detail` VALUES (10, 24, 4, 1);
+INSERT INTO `combo_detail` VALUES (11, 25, 7, 2);
+INSERT INTO `combo_detail` VALUES (12, 25, 12, 1);
+INSERT INTO `combo_detail` VALUES (13, 25, 4, 1);
+INSERT INTO `combo_detail` VALUES (14, 25, 16, 1);
+INSERT INTO `combo_detail` VALUES (15, 26, 1, 2);
+INSERT INTO `combo_detail` VALUES (16, 26, 7, 2);
+INSERT INTO `combo_detail` VALUES (17, 26, 3, 1);
 
 -- ----------------------------
 -- Table structure for district
@@ -263,10 +277,17 @@ CREATE TABLE `notify`  (
   `id_sender` int(11) NULL DEFAULT NULL,
   `type_receiver` tinyint(1) NULL DEFAULT 0,
   `title` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `date_send` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_notify`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of notify
+-- ----------------------------
+INSERT INTO `notify` VALUES (1, NULL, 2, 'Giờ Làm Việc', '<p>Th&ocirc;ng b&aacute;o về giờ giấc l&agrave;m việc c&oacute; sự thay đổi bắt đầu từ ng&agrave;y <strong>08-01-2020</strong>. Giờ l&agrave;m việc buổi s&aacute;ng sẽ bắt đầu v&agrave;o l&uacute;c <strong>08:00h</strong>.</p>\r\n', '2020-01-07');
+INSERT INTO `notify` VALUES (2, NULL, 1, 'Khuyến mãi', '<p>Chương tr&igrave;nh khuyến m&atilde;i <strong>9%</strong> đang được diễn ra v&agrave; &aacute;p dụng đối với tất cả c&aacute;c sản phẩm. Chương tr&igrave;nh diễn ra bắt đầu&nbsp;từ ng&agrave;y <strong>05-01-2020</strong> đến hết ng&agrave;y <strong>09-01-2020</strong>.', '2020-01-07');
+INSERT INTO `notify` VALUES (3, NULL, 1, 'Thời gian phục vụ', '<p>Th&ocirc;ng b&aacute;o về thời gian hoạt động của cửa h&agrave;ng v&agrave;o dịp tết. Để mọi người đều được đ&oacute;n tết c&ugrave;ng gia đ&igrave;nh, cửa h&agrave;ng ch&uacute;ng t&ocirc;i sẽ nghĩ v&agrave;o ng&agrave;y mồng 1&nbsp;tết tương ứng&nbsp;<strong>DL : 25-01-2019</strong>, c&aacute;c ng&agrave;y sau đ&oacute; đều hoạt động b&igrave;nh thường. Tr&acirc;n trọng !!!</p>\r\n', '2020-01-07');
 
 -- ----------------------------
 -- Table structure for notify_staff
@@ -278,7 +299,13 @@ CREATE TABLE `notify_staff`  (
   `id_staff` int(11) NULL DEFAULT NULL,
   `status` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id_detail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of notify_staff
+-- ----------------------------
+INSERT INTO `notify_staff` VALUES (1, 1, 1, 1);
+INSERT INTO `notify_staff` VALUES (2, 1, 2, 0);
 
 -- ----------------------------
 -- Table structure for notify_user
@@ -290,7 +317,17 @@ CREATE TABLE `notify_user`  (
   `id_user` int(11) NULL DEFAULT NULL,
   `status` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id_detail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of notify_user
+-- ----------------------------
+INSERT INTO `notify_user` VALUES (1, 2, 1, 0);
+INSERT INTO `notify_user` VALUES (2, 2, 2, 1);
+INSERT INTO `notify_user` VALUES (3, 2, 3, 0);
+INSERT INTO `notify_user` VALUES (4, 3, 1, 0);
+INSERT INTO `notify_user` VALUES (5, 3, 2, 0);
+INSERT INTO `notify_user` VALUES (6, 3, 3, 0);
 
 -- ----------------------------
 -- Table structure for per_detail
@@ -340,7 +377,7 @@ CREATE TABLE `product`  (
   `descript` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` tinyint(1) NULL DEFAULT 0,
   PRIMARY KEY (`id_pro`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of product
@@ -350,6 +387,27 @@ INSERT INTO `product` VALUES (2, 3, 'Burger Hotdog', 0, 35000, 'burger_1.jpg', '
 INSERT INTO `product` VALUES (3, 4, 'Coca Cola', 0, 17000, 'drink_1.jpg', '1 chai Coca Cola ướp lạnh', 1);
 INSERT INTO `product` VALUES (4, 5, 'Khoai tây chiên', 10, 10000, 'dish_extra_2.jpg', '1 phần ăn khoai tây chiên', 1);
 INSERT INTO `product` VALUES (5, 1, 'Combo Gà chiên giòn', 20, 65000, 'combo.jpg', 'Combo 1 Gà chiên giòn + 1 Coca Cola + 1 Khoai tây chiên', 1);
+INSERT INTO `product` VALUES (6, 2, 'Cánh Gà Chiên Giòn', 0, 35000, 'chicken_1.jpg', '2 Cánh gà chiên giòn + 1 phần tương ớt.', 1);
+INSERT INTO `product` VALUES (7, 2, '3 Miếng Gà Giòn Không Xương', 0, 55000, 'chicken_3.jpg', '3 miếng gà không xương + 1 chén sốt mayo.', 1);
+INSERT INTO `product` VALUES (8, 1, 'Combo Đùi Gà Chiên Giòn', 0, 149000, 'combo_5.jpg', '4 đùi gà gà chiên giòn + 1 phần khoai tây chiên + 1 chén tương.', 1);
+INSERT INTO `product` VALUES (9, 3, 'Burger Cá Rán', 0, 57000, 'burger.jpg', '1 burger cá + 1 phần khoai tây chiên (vừa)', 1);
+INSERT INTO `product` VALUES (10, 3, 'Burger Phô Mai', 0, 44000, 'burger_2.jpg', '1 bánh burger phô mai vị béo', 1);
+INSERT INTO `product` VALUES (11, 3, 'Burger thịt chiên', 0, 55000, 'burger_4.jpg', '1 burger thịt chiên + 1 chén tương', 1);
+INSERT INTO `product` VALUES (12, 3, 'Burger thịt gà chiên', 0, 47000, 'burger_5.jpg', '1 burger thịt gà chiên + 1 chén tương', 1);
+INSERT INTO `product` VALUES (13, 3, 'Burger gà cajun', 0, 54000, 'burger_8.jpg', '1 Burger gà Cajun + 1 chén tương', 1);
+INSERT INTO `product` VALUES (14, 4, 'Sprite', 0, 17000, 'drink_2.jpg', 'Sprite 500 ml', 1);
+INSERT INTO `product` VALUES (15, 4, 'Fanta', 0, 17000, 'drink_3.jpg', 'Fanta 500ml', 1);
+INSERT INTO `product` VALUES (16, 4, 'Pepsi', 0, 17000, 'drink_4.jpg', '1 pepsi 500ml', 1);
+INSERT INTO `product` VALUES (17, 4, 'Sting', 0, 17000, 'drink_5.jpg', '1 Sting 500ml', 1);
+INSERT INTO `product` VALUES (18, 4, 'Strongbow', 0, 23000, 'drink_6.jpg', '1 Strongbow 500ml', 1);
+INSERT INTO `product` VALUES (19, 5, '3 bánh khoai tây', 0, 20000, 'dish_extra_5.jpg', '3 bánh khoai tây vị mật ong', 1);
+INSERT INTO `product` VALUES (20, 5, 'Cơm', 0, 10000, 'dish_extra_1.jpg', '1 chén cơm thêm', 1);
+INSERT INTO `product` VALUES (21, 5, '1 chén canh súp', 0, 12000, 'dish_extra_3.jpg', '1 chén canh sup tùy theo ngày', 1);
+INSERT INTO `product` VALUES (22, 5, '2 lát bánh mì', 0, 10000, 'dish_extra_6.jpg', '1 lát bánh mỳ ăn kèm', 1);
+INSERT INTO `product` VALUES (23, 1, 'Combo Burger cajun', 20, 59000, 'combo_1.jpg', '1 bánh burger + 1 cocacola cho 1 người ăn', 1);
+INSERT INTO `product` VALUES (24, 1, 'Combo 3 miếng Gà Rút Xương', 0, 64000, 'combo_2.jpg', '3 miếng gà rút xương + 1 phần khoai tây chiên + 1 sprite (500ml)', 1);
+INSERT INTO `product` VALUES (25, 1, 'Combo Gà Burger', 0, 77000, 'combo_3.jpg', '2 miếng gà rút xương + 1 Bánh burger thịt chiên + 1 phần khoai tây chiên + 1 pepsi (500ml)', 1);
+INSERT INTO `product` VALUES (26, 1, 'Combo Đùi Gà', 0, 88000, 'combo_4.jpg', '2 Đùi gà chiên + 2 Miếng gà rút xương + 2 cocacola', 1);
 
 -- ----------------------------
 -- Table structure for product_type
@@ -441,12 +499,13 @@ CREATE TABLE `staff`  (
   `created_at` date NULL DEFAULT NULL,
   `updated_at` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_staff`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of staff
 -- ----------------------------
-INSERT INTO `staff` VALUES (1, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0334548560', NULL, 1, '2019-12-20', NULL);
+INSERT INTO `staff` VALUES (1, 'Admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0334548560', NULL, 1, '2019-12-20', '2020-01-07');
+INSERT INTO `staff` VALUES (2, 'staff', 'staff@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '0346225423', NULL, 1, '2020-01-07', NULL);
 
 -- ----------------------------
 -- Table structure for staff_per
@@ -458,12 +517,14 @@ CREATE TABLE `staff_per`  (
   `id_staff` int(11) NULL DEFAULT NULL,
   `licensed` tinyint(1) NULL DEFAULT 1,
   PRIMARY KEY (`id_user_per`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of staff_per
 -- ----------------------------
 INSERT INTO `staff_per` VALUES (1, 1, 1, 1);
+INSERT INTO `staff_per` VALUES (3, 3, 2, 1);
+INSERT INTO `staff_per` VALUES (4, 4, 2, 1);
 
 -- ----------------------------
 -- Table structure for user
