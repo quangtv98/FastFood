@@ -11,12 +11,12 @@
             if($num > 0){
                 $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
         ?>
-        <table class="col-md-12 table-hover shadow">
+        <table class="table">
             <thead>
                 <th width="100px">Ngày gửi</th>
-                <th width="200px">Tiêu đề</th>
-                <th width="200px">Nội dung</th>
-                <th width="200px">Thao tác</th>
+                <th width="150px">Tiêu đề</th>
+                <th width="250px">Nội dung</th>
+                <th width="150px">Thao tác</th>
                 <th width="50px">Xóa</th>
             </thead>
             <tbody>

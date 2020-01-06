@@ -1,10 +1,9 @@
-
 <?php
 
     class MasterModel{
 	
 		public function get_list_district($id_city){
-            include "connect.php";
+            require_once "connect.php";
             if(isset($_POST['city'])){
                 $id_city=$_POST['city'];
             }
@@ -15,7 +14,7 @@
         }
 	
 		public function get_list_ward($id_district){
-            include "connect.php";
+            require_once "connect.php";
             if(isset($_POST['district'])){
                 $id_district=$_POST['district'];
             }

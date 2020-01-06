@@ -84,7 +84,7 @@
                             ?>
                             <tr>
                                 <td><?php echo $row['title'] ?></td>
-                                <td><?php echo $row['message'] ?></td>
+                                <td class="text-left"><?php echo $row['message'] ?></td>
                                 <td><?php echo object($row['type_receiver']) ?></td>
                                 <td><?php echo date_format(date_create($row['date_send'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
                                 <td><a href="" class="text-info" data-toggle="modal" data-target="#<?php echo 'update'.$row['id_notify'] ?>" data-toggle="tooltip" title="Cập nhật trạng thái đơn hàng"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>

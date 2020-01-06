@@ -47,6 +47,7 @@
                         </div>
                         <div class="form-group">
                             <select name="id_type" id="" class="form-control">
+                                <!-- <option value="" selected>--Chọn loại sản phẩm--</option> -->
                             <?php
                                 $stmt=$conn->prepare('SELECT * FROM product_type WHERE id_type <> "1" AND status="1"');
                                 $stmt->execute();
@@ -188,7 +189,7 @@
         <div class="text-uppercase mt-4">
             <ul class="nav nav-pills d-flex justify-content-center">
             <?php
-                $query="SELECT * FROM product_type WHERE id_type <> '1' AND status='1'";
+                $query="SELECT * FROM product_type WHERE id_type <> '1'";
                 $stmt=$conn->prepare($query);
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -205,7 +206,6 @@
                 <input class="form-control w-50" id="Input" type="text" placeholder="Nhập thông tin sản phẩm muốn tìm..">
             </div>
             <?php 
-                // Tính tổng số cột
                 if(isset($_GET['id_type'])){
                     $id_type=$_GET['id_type'];
                     $stmt=$conn->prepare('SELECT count(id_pro) AS total_record FROM product WHERE id_type=:id_type AND id_type <> "1"');
@@ -468,7 +468,7 @@
                 
                 <!-- Modal body -->
                 <div class="col-md-12 modal-body text-center">
-                    <form action="lib/admin/process/update_product.php?id_pro=<?php echo $row['id_pro'] ?>&page=<?php echo $_GET['page'] ?>" method="POST">
+                    <form action="lib/admin/process/update_product.php?id_pro=<?php echo $row['id_pro'] ?><?php if(isset($_GET['page'])) echo '&page='.$_GET['page'] ?><?php if(isset($_GET['id_type'])) echo '&id_type='.$_GET['id_type'] ?>" method="POST">
                     <!-- <p>Phần ăn chính</p> -->
                     <table class="table text-center border">
                         <tr>

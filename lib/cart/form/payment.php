@@ -49,7 +49,7 @@
                     <div class="border p-3">
                         <div class="clearfix">
                             <span>Địa chỉ giao hàng</span>
-                            <a href="http://localhost/FastFood/index.php?page=delivery_address" class="btn btn-light btn-sm border px-3 float-right">Sửa</a>
+                            <a href="index.php?page=delivery_address" class="btn btn-light btn-sm border px-3 float-right">Sửa</a>
                         </div>
                         <hr>
                         <strong><?php echo $user['username'] ?></strong>
@@ -63,7 +63,7 @@
                     <div class="border p-3 mt-3">
                         <div class="clearfix">
                             <span>Đơn hàng (<?php echo count($_SESSION['cart']) ?> sản phẩm)</span>
-                            <a href="http://localhost/FastFood/index.php?page=cart" class="btn btn-light btn-sm border px-3 float-right">Sửa</a>
+                            <a href="index.php?page=cart" class="btn btn-light btn-sm border px-3 float-right">Sửa</a>
                         </div>
                         <?php 
                         if(isset($_SESSION['cart'])){
@@ -134,7 +134,11 @@
                 </div>
             </div>
         </div>
-<?php } ?>
+<?php }
+    else{
+        header("location:index.php");
+        setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
+    } ?>
 
 <script>
     $(document).ready(function(){

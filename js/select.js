@@ -68,22 +68,3 @@ document.getElementById('radio3').onclick = function (obj) {
         $("#btn-choose").show("slow");
     }
 }
-
-// chức năng chọn nơi tổ chức tiệc
-function localChange(obj)
-{    
-
-    // ẩn loại không chọn
-    var value = obj.value;
-    if (value === '1'){
-        document.getElementById('inside').hidden = false;
-        document.getElementById('outside').hidden = true;
-        document.getElementById('home').disabled = true;
-        document.getElementById('home').value = '';
-    }
-    else{
-        document.getElementById('inside').hidden = true;
-        document.getElementById('outside').hidden = false;
-        document.getElementById('home').disabled = false;
-    }
-}

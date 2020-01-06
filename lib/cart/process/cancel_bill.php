@@ -9,16 +9,16 @@
         $stmt=$conn->prepare($query);
         $check=$stmt->execute(array('status' => '1','id_user' => $id_user, 'id_bill' => $id_bill));
         if($check){
-            header("location:../../../index.php?page=view_bill");
+            header("location:../../../index.php?page=view_bill_detail&id_bill=$id_bill");
             setcookie("success", "Hủy đơn hàng thành công !!!", time()+1,"/","",0);
         }
         else{
-            header("location:../../../index.php?page=view_bill");
+            header("location:../../../index.php?page=view_bill_detail&id_bill=$id_bill");
             setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
         }
     }
     else{
-        header("location:../../../index.php?page=view_bill");
+        header("location:../../../index.php?page=view_bill_detail&id_bill=$id_bill");
         setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
     }
 ?>

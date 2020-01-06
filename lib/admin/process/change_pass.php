@@ -3,8 +3,8 @@
     require_once "../../function/connect.php";
     require_once "../../function/function.php";
     if(isset($_POST['submit'])){
-        if(isset($_SESSION['id_user'])){
-            $id_user=$_SESSION['id_user'];
+        if(isset($_SESSION['id_staff'])){
+            $id_staff=$_SESSION['id_staff'];
             $password_old=addslashes($_POST['password_old']);
             $_SESSION['password_old']=$password_old;
             $password_old=md5($password_old);
@@ -17,7 +17,7 @@
             $_SESSION['re_password_new']=$re_password_new;
             $re_password_new=md5($re_password_new);
             
-            $query="SELECT password FROM user WHERE id_user='$id_user'";
+            $query="SELECT password, updated_at FROM staff WHERE id_staff='$id_staff'";
             $stmt=$conn->prepare($query);
             $stmt->execute();
             $row=$stmt->fetch();
@@ -33,10 +33,11 @@
                         $today=$current_datetime['created_at_date'];
                         $updated_at=$row['updated_at'];
                         $sub=(strtotime($today) - strtotime($updated_at))/86400;
+                        // Chỉ được cập nhật ở lần tiếp theo sau 30 ngày
                         if($sub >= 30){
-                            $stmt=$conn->prepare('UPDATE user SET password=:password_new, updated_at=:updated_at WHERE id_user=:id_user');
+                            $stmt=$conn->prepare('UPDATE staff SET password=:password_new, updated_at=:updated_at WHERE id_staff=:id_staff');
                             $stmt->bindParam(':password_new',$password_new);
-                            $stmt->bindParam(':id_user',$id_user);
+                            $stmt->bindParam(':id_staff',$id_staff);
                             $stmt->bindParam(':updated_at',$today);
                             $check=$stmt->execute();
                             if($check){

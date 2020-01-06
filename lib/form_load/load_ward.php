@@ -1,6 +1,6 @@
 <?php
 
-    require_once "MasterModel.php";
+    require_once "../function/MasterModel.php";
     $masterModel = new MasterModel();
 
     //Lấy ra danh sách Phường / Xã
@@ -16,8 +16,5 @@
             $string .= "<option selected>--Phường / Xã--</option>";
         }
         echo $string;		
-    }
-    else{
-        header('Location:../../../user/form/profile.php');
     }
 ?>

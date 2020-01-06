@@ -24,12 +24,29 @@
         }
         else{
             // Lấy địa chỉ tổ chức bên ngoài cửa hàng
-            $home = addslashes($_POST['home']);
-            $_SESSION['home']=$home;
-            $ward = addslashes($_POST['ward']);
-            $district = addslashes($_POST['district']);
-            $city = addslashes($_POST['city']);
-            $address = $home.", ".$ward.", ".$district.", ".$city;
+            $id_city = $_POST['city'];
+            $id_district = $_POST['district'];
+            $id_ward = $_POST['ward'];
+            $name_home = trim(rtrim($_POST['home'], ','));
+            // lấy ra tên thành phố
+            $stmt = $conn->prepare('SELECT name FROM city WHERE id_city=:id_city');
+            $stmt->execute(['id_city' => $id_city]);
+            $result = $stmt->fetch();
+            $name_city = $result['name'];
+            
+            // lấy ra tên thành phố quận / huyện
+            $stmt = $conn->prepare('SELECT name FROM district WHERE id_district=:id_district');
+            $stmt->execute(['id_district' => $id_district]);
+            $result = $stmt->fetch();
+            $name_district = $result['name'];
+            
+            // lấy ra tên phường / xã
+            $stmt = $conn->prepare('SELECT name FROM ward WHERE id_ward=:id_ward');
+            $stmt->execute(['id_ward' => $id_ward]);
+            $result = $stmt->fetch();
+            $name_ward = $result['name'];
+
+            $name_address = $name_home.", ".$name_ward.", ".$name_district.", ".$name_city.", Việt Nam";
         }
 
         $_SESSION['child_name']=$child_name;

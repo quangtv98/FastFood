@@ -91,37 +91,30 @@
                             </div>
                             <div class="col-md-12 ml-0 row" id="outside" hidden>
                                 <div class="col-md-4 pl-0 form-group">
-                                <select name="city" id="city" class="form-control">
-                                    <?php 
-                                    $stmt=$conn->prepare('SELECT * FROM city ORDER BY id_city DESC');
-                                    $stmt->execute();
-                                    $result_1=$stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach($result_1 as $row){ ?>
-                                        <option  value="<?php echo $row['name'] ?>"><?php echo $row['name'] ?></option>
-                                    <?php } ?>
-                                </select>
+                                    <!-- <label for="city">Thành Phố / Tỉnh :</label> -->
+                                    <select name="city" id="city" class="form-control">
+                                        <!-- <option value="" selected> --Thành Phố / Tỉnh--</option> -->
+                                        <?php 
+                                        $id_city=0;
+                                        $stmt=$conn->prepare('SELECT * FROM city ORDER BY id_city DESC');
+                                        $stmt->execute();
+                                        $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        foreach($result as $row){ ?>
+                                            <option value="<?php echo $row['id_city'] ?>"><?php echo $row['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                                 <div class="col-md-4 pl-0 form-group">
-                                <select name="district" id="district" class="form-control">
-                                    <?php 
-                                    $stmt=$conn->prepare('SELECT * FROM district ORDER BY name');
-                                    $stmt->execute();
-                                    $result_1=$stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach($result_1 as $row){ ?>
-                                        <option value="<?php echo $row['name'] ?>"><?php echo $row['name'] ?></option>
-                                    <?php } ?>
-                                </select>
+                                    <!-- <label for="district">Quận / Huyện :</label> -->
+                                    <select name="district" id="district" class="form-control">
+                                        <option value="">--Quận / Huyện--</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-4 px-0 form-group">
-                                <select name="ward" id="ward" class="form-control">
-                                    <?php 
-                                    $stmt=$conn->prepare('SELECT * FROM ward GROUP BY name');
-                                    $stmt->execute();
-                                    $result_1=$stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    foreach($result_1 as $row){ ?>
-                                        <option  value="<?php echo $row['name'] ?>"><?php echo $row['name'] ?></option>
-                                    <?php } ?>
-                                </select>
+                                <div class="col-md-4 pl-0 form-group">
+                                    <!-- <label for="ward">Phường / Xã :</label> -->
+                                    <select name="ward" id="ward" class="form-control">
+                                        <option value="">--Phường / Xã--</option>
+                                    </select>
                                 </div>
                                 <div class="form-group w-100">
                                     <input type="text" name="home" class="form-control" value="<?php if(isset($_SESSION['home'])) echo $_SESSION['home'] ?>" placeholder="Số nhà, tên đường,..." required="required">
@@ -141,5 +134,64 @@
     </div>
 </div>
 
-<!-- Chọn -->
-<script src="js/select.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#city').change(function(){
+        var city = $('#city option:selected').val();
+        $.ajax({
+                url:'lib/form_load/load_district.php',
+                type:'post',
+                data:{
+                    city:city,
+                },
+                async:true,
+                dataType:'html',
+                success:function(result){
+                $('#district').html(result);
+            }
+        });
+        return false;
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#district').change(function(){
+        var district = $('#district option:selected').val();
+        $.ajax({
+                url:'lib/form_load/load_ward.php',
+                type:'post',
+                data:{
+                    district:district,
+                },
+                async:true,
+                dataType:'html',
+                success:function(result){
+                $('#ward').html(result);
+            }
+        });
+        return false;
+        });
+    });
+</script>
+
+<script>
+    // chức năng chọn nơi tổ chức tiệc
+    function localChange(obj)
+    {    
+
+        // ẩn loại không chọn
+        var value = obj.value;
+        if (value === '1'){
+            document.getElementById('inside').hidden = false;
+            document.getElementById('outside').hidden = true;
+            document.getElementById('home').disabled = true;
+            document.getElementById('home').value = '';
+        }
+        else{
+            document.getElementById('inside').hidden = true;
+            document.getElementById('outside').hidden = false;
+            document.getElementById('home').disabled = false;
+        }
+    }
+</script>

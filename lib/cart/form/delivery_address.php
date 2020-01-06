@@ -39,7 +39,6 @@
                             </div>
                             <div class="">
                                 <a href="lib/cart/process/delivery_address.php?id_address=<?php echo $id_address ?>" class="btn btn-danger btn-sm px-3">Giao đến địa chỉ này</a>
-                                <a href="" class="btn btn-light btn-sm border px-3">Sửa</a>
                                 <?php if($address['status'] == 0){ ?>
                                 <a href="lib/user/process/del_address.php?id_address=<?php echo $id_address ?>&page=<?php echo $page ?>" onclick="return confirmDel()" class="btn btn-light btn-sm border px-3">Xóa</a>
                                 <?php } ?>
@@ -117,7 +116,7 @@
         $('#city').change(function(){
         var city = $('#city option:selected').val();
         $.ajax({
-                url:'lib/function/ajax_district.php',
+                url:'lib/form_load/load_district.php',
                 type:'post',
                 data:{
                     city:city,
@@ -138,7 +137,7 @@
         $('#district').change(function(){
         var district = $('#district option:selected').val();
         $.ajax({
-                url:'lib/function/ajax_ward.php',
+                url:'lib/form_load/load_ward.php',
                 type:'post',
                 data:{
                     district:district,

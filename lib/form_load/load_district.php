@@ -1,6 +1,6 @@
 <?php 
 
-    require_once "MasterModel.php";
+    require_once "../function/MasterModel.php";
     //Lấy ra danh sách Quận / Huyện
     $masterModel = new MasterModel();
     if(isset($_POST['city'])){
@@ -15,8 +15,5 @@
             $string .= "<option selected>--Quận / Huyện--</option>";	
         }
         echo $string;	
-    }
-    else{
-        header('Location:../../../user/form/profile.php');
     }
 ?>

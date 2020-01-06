@@ -7,8 +7,8 @@
         $page=$_GET['page'];
 
         // Xóa thông báo trong bảng notify_detail
-        $stmt=$conn->prepare('DELETE FROM address WHERE id_address=:id_address');
-        $check=$stmt->execute(['id_address'=>$id_address]);
+        $stmt=$conn->prepare('DELETE FROM address WHERE id_address=:id_address AND id_user=:id_user');
+        $check=$stmt->execute(['id_address'=>$id_address, 'id_user' => $id_user]);
 
         if($check){
             if($page == "payment"){

@@ -146,7 +146,7 @@
                             <td><?php echo date_format(date_create($row['date_start'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
                             <td><?php echo date_format(date_create($row['date_end'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
                             <td><?php echo status_promotions($row['status']) ?></td>
-                            <td><a href="" class="text-info <?php if($row['status']==3) echo 'disabled' ?>" data-toggle="modal" data-target="<?php echo '#promotions'.$row['id_promo'] ?>" 
+                            <td><a href="" class="text-info <?php if($row['status']==3) echo 'isDisabled' ?>" data-toggle="modal" data-target="<?php echo '#promotions'.$row['id_promo'] ?>" 
                             data-toggle="tooltip" title="Cập nhật chương trình khuyến mãi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                         </tr>
                     <?php } ?>

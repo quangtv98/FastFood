@@ -218,8 +218,8 @@ body{
 }
 
 .isDisabled {
-    color: currentColor;
-    cursor: not-allowed;
+    pointer-events: none;
+    cursor: default;
     opacity: 0.3;
 }
 

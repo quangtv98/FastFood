@@ -5,7 +5,9 @@
     if(isset($_COOKIE['id_staff']) && isset($_COOKIE['id_per'])){
         $_SESSION['id_staff']=$_COOKIE['id_staff'];
         $_SESSION['staffname']=$_COOKIE['staffname'];
+        // chuyển chuỗi thành mảng
         $_SESSION['id_per']=explode(',', $_COOKIE['id_per']);
+        // chuyển mảng thành chuỗi
         $str_id_per=implode(',',$_SESSION['id_per']);
         setcookie("id_staff",$_SESSION['id_staff'], time()+7*24*3600,"/","",0);
         setcookie("staffname",$_SESSION['staffname'], time()+7*24*3600,"/","",0);
