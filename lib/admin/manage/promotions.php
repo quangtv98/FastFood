@@ -47,7 +47,7 @@
                             <div id="input-value" style="display: none">
                                 <label id="show_promotions" class="pt-3 mt-1"></label>
                                 <div class="form-group form-inline">
-                                    <input type="number" name="value" id="value" class="form-control text-center w-input" value="<?php if(isset($_SESSION['value'])) echo $_SESSION['value'] ?>" min="0" required>
+                                    <input type="number" name="value" id="value" class="form-control text-center w-input" value="<?php if(isset($_SESSION['value'])) echo $_SESSION['value'] ?>" min="0">
                                     <span class="ml-3" id="show_unit"></span>
                                 </div>
                                 <p class="text-warning" id="show_message"></p>
@@ -67,7 +67,7 @@
                                             <th>Xóa</th>
                                         </thead>
                                         <tbody>
-                                        <tr><td colspan="5"><h1></h1></td></tr>
+                                        <tr><td colspan="5"><h6></h6></td></tr>
                                         <?php $i=0;
                                         foreach($_SESSION['choose_pro_in_promotion'] as $id_pro => $qty){
                                             $stmt=$conn->prepare('SELECT name_pro,images,price FROM product WHERE id_pro=:id_pro AND status=:status');
@@ -315,6 +315,5 @@
         </div>
     </div>
 </div>
-<!-- Chọn -->
-<script src="js/select.js" type="text/javascript"></script>
 <?php } ?>
+<script src="js/select.js" type="text/javascript"></script>

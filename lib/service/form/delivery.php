@@ -1,9 +1,9 @@
 <div class="container" id="bg">
-    <div class="d-flex justify-content-center mt-3">
+    <div class="d-flex justify-content-center">
         <img src="./images/delivery.jpg" width="100%" height="350px" alt="First slide">
     </div>
 
-    <h3 class="text-center text-uppercase" id="font-color">Điều kiện áp dụng</h3>
+    <h3 class="text-center text-uppercase mt-3" id="font-color">Điều kiện áp dụng</h3>
     <div class="d-flex row justify-content-center" id="font-color">
         <div class="col-md-5">
             <ul>

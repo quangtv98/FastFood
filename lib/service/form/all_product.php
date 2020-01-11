@@ -62,7 +62,7 @@
                         $id_pro = $row_s['id_pro'];
                     } ?>
 
-                    <div class="col-md-6 d-inline-flex row">
+                    <div class="col-md-6 d-inline-flex row mb-3">
                         <div class="col d-flex row">
                             <?php if(isset($Initial_price[$id_pro])){ ?>
                             <span class="btn btn-danger rounded-circle position-absolute py-0" style="left:131px">sale</span>

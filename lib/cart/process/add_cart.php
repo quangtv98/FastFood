@@ -38,14 +38,12 @@
             $query="SELECT name_pro,price,images FROM product WHERE id_pro=:id_pro";
             $stmt=$conn->prepare($query);
             $stmt->execute(['id_pro' => $id_pro]);
-            $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($result as $row) {
-                $_SESSION['cart'][$id_pro]=array(
-                    "name" => $row['name_pro'],
-                    "price" => $row['price'],
-                    "qty" => $qty
-                );
-            }
+            $row=$stmt->fetch();
+            $_SESSION['cart'][$id_pro]=array(
+                "name" => $row['name_pro'],
+                "price" => $row['price'],
+                "qty" => $qty
+            );
 
             // Thêm sản phẩm mới vào bảng tạm nếu đã đăng nhập
             if(isset($_SESSION['id_user']) && isset($_GET['id_pro'])){
