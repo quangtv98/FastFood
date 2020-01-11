@@ -11,7 +11,7 @@
  Target Server Version : 100138
  File Encoding         : 65001
 
- Date: 10/01/2020 15:14:23
+ Date: 11/01/2020 17:46:35
 */
 
 SET NAMES utf8mb4;
@@ -445,12 +445,13 @@ CREATE TABLE `promotions`  (
   `date_end` date NULL DEFAULT NULL,
   `status` tinyint(1) NULL DEFAULT 1,
   PRIMARY KEY (`id_promo`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of promotions
 -- ----------------------------
 INSERT INTO `promotions` VALUES (1, 'Mừng năm mới', 2, 9, '2020-01-05', '2020-01-09', 3);
+INSERT INTO `promotions` VALUES (2, 'Tết Nguyên Đán', 3, 0, '2020-01-11', '2020-01-15', 1);
 
 -- ----------------------------
 -- Table structure for sale_product
@@ -462,13 +463,15 @@ CREATE TABLE `sale_product`  (
   `id_pro` int(11) NULL DEFAULT NULL,
   `reduced_price` decimal(10, 0) NULL DEFAULT NULL,
   PRIMARY KEY (`id_sale`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sale_product
 -- ----------------------------
 INSERT INTO `sale_product` VALUES (1, 2, 1, 39000);
 INSERT INTO `sale_product` VALUES (2, 2, 2, 29000);
+INSERT INTO `sale_product` VALUES (3, 2, 5, 58000);
+INSERT INTO `sale_product` VALUES (4, 2, 6, 30000);
 
 -- ----------------------------
 -- Table structure for ship

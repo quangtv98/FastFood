@@ -80,7 +80,7 @@
                     $stmt_2=$conn->prepare('SELECT * FROM sale_product WHERE id_promo=:id_promo AND id_pro=:id_pro');
                     $stmt_2->execute(['id_promo' => $id_promo, 'id_pro' => $id_pro]);
                     $row_2 = $stmt_2->fetch();
-                    if($id_pro = $row_2['id_pro']){
+                    if($id_pro == $row_2['id_pro']){
                         // Lấy ra giá ban đầu để show ra
                         $Initial_price[$id_pro] = $row['price'];
                         $price = $row_2['reduced_price'];
