@@ -84,10 +84,6 @@ body{
     background-color: darkorange;
 }
 
-#top{
-    margin-top: 80px;
-}
-
 #size-md{
     font-size: 15px;
 }
@@ -105,7 +101,7 @@ body{
     height: 70px;
 }
 
-#bg-cart{
+#bg{
     min-height: 500px;
     margin-top: 80px;
 }

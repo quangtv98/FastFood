@@ -1,4 +1,4 @@
-<section class="container" id="top">
+<section class="container" id="bg">
     <div class="row">
         <div class="col-md-6">
         <img src="./images/banner.jpg" alt="chania">

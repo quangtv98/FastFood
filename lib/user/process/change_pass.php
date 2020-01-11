@@ -36,28 +36,34 @@
                             unset($_SESSION['password_old']);
                             unset($_SESSION['password_new']);
                             unset($_SESSION['re_password_new']);
+                            if(isset($_SESSION['error'])){
+                                unset($_SESSION['error']);
+                            }
                             header("location:../../../index.php?page=profile");
                             setcookie("success", "Thay đổi mật khẩu thành công !!!", time()+1,"/","",0);
                         }
                         else{
+                            $_SESSION['error']=true;
                             header("location:../../../index.php?page=profile");
                             setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
                         }
                     }
                 }
                 else{
+                    $_SESSION['error']=true;
                     header("location:../../../index.php?page=profile");
                     setcookie("error", "Mật khẩu mới không khớp !!!", time()+1,"/","",0);  
                 }
             }
             else{
+                $_SESSION['error']=true;
                 header("location:../../../index.php?page=profile");
                 setcookie("error", "Mật khẩu cũ không đúng !!!", time()+1,"/","",0);
             }
         }
-    }
-    else{
-        header("location:../../../index.php");
-        setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
+        else{
+            header("location:../../../index.php");
+            setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
+        }
     }
 ?>

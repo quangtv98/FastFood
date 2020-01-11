@@ -1,4 +1,4 @@
-<div class="container text-center" id="top">
+<div class="container text-center" id="bg">
     <div id="font-color">
         <h3 class="text-uppercase">Đăng nhập hệ thống</h3>
     </div>

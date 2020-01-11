@@ -133,7 +133,7 @@
                         }
                         // Tìm Start
                         $start = ($current_page - 1) * $limit;
-                        $stmt = $conn->prepare('SELECT * FROM promotions ORDER BY date_start DESC LIMIT :start, :limit');
+                        $stmt = $conn->prepare('SELECT * FROM promotions ORDER BY id_promo DESC LIMIT :start, :limit');
                         $stmt->bindValue(':start', $start, PDO::PARAM_INT);
                         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
                         $stmt -> execute();

@@ -1,4 +1,4 @@
-<div class="container text-center" id="bg-cart">
+<div class="container text-center" id="bg">
     <div class="pb-3">
         <h3 class="text-uppercase" id="font-color">Giỏ hàng</h3>
     </div>

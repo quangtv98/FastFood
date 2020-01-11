@@ -134,7 +134,7 @@
                         $stmt=$conn->prepare('UPDATE user SET updated_at=:updated_at WHERE email=:email');
                         $stmt->execute(['updated_at' => $updated_at, 'email' => $email]);
                         header("location:../../../index.php?page=signin");
-                        setcookie("error", "Đăng nhập sai quá 3 lần !!! Xin chờ thêm 30 phút", time()+1,"/","",0);
+                        setcookie("error", "Đăng nhập sai quá 3 lần !!! Xin chờ thêm 5 phút", time()+1,"/","",0);
                     }
                     else{
                         header("location:../../../index.php?page=signin");

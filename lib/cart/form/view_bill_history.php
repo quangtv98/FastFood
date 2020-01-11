@@ -1,4 +1,4 @@
-<div class="container text-center" id="bg-cart">
+<div class="container text-center" id="bg">
     <?php require_once "lib/function/function.php"; ?>
     <div class="text-center">
         <h3 class="text-uppercase" id="font-color">Lịch sử đơn hàng</h3>

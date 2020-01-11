@@ -1,6 +1,5 @@
-<div class="container">
+<div class="container mt-3">
     <?php
-    // var_dump($id_type);
         $query="SELECT id_type,name_type,images FROM product_type WHERE status='1'";
         $stmt=$conn->prepare($query);
         $stmt->execute();

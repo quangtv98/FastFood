@@ -67,8 +67,8 @@
     
                     setcookie("success", "Đăng ký tài khoản thành công !!!", time()+1,"/","",0);
                     // Quay lại trang thanh toán nếu đang chọn thanh toán
-                    if(isset($_GET['action']) && $_GET['action']=="payment"){
-                        header("location:../../../index.php?page=payment");
+                    if(isset($_GET['action']) && $_GET['action']=="delivery_address"){
+                        header("location:../../../index.php?page=delivery_address");
                     }else{
                         header("location:../../../index.php");
                     }

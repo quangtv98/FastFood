@@ -9,8 +9,7 @@
     <?php include "header.php"; ?>
 <body>
 
-    <?php include "lib/function/notify.php"; ?>
-    <div class="container text-center" id="top">
+    <div class="container text-center" id="bg">
         <div id="font-color">
             <h3 class="text-uppercase">Đăng nhập - Quản trị hệ thống</h3>
         </div>

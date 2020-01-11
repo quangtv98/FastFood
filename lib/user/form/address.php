@@ -1,4 +1,4 @@
-<div class="container" id="bg-cart">
+<div class="container" id="bg">
     <div id="font-color">
         <h3 class="text-uppercase text-center">Sổ địa chỉ</h3>
     </div>
