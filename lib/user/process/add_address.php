@@ -45,10 +45,16 @@
             // Tùy chọn chọn địa chỉ này làm địa chỉ mặc định
             if(isset($_POST['active'])){
                 $status = 1;
+                // Thêm địa chỉ vào theo id_user
+                $stmt = $conn->prepare('UPDATE address SET status=:status WHERE id_user=:id_user');
+                $stmt->execute(['status' => 0, 'id_user' => $id_user]);
+                $stmt = $conn->prepare('INSERT INTO address(id_user, name_address, status) VALUES (:id_user, :name_address, :status)');
+                $check = $stmt->execute(['id_user' => $id_user, 'name_address' => $name_address, 'status' => $status]);
+            }else{
+                // Thêm địa chỉ vào theo id_user
+                $stmt = $conn->prepare('INSERT INTO address(id_user, name_address, status) VALUES (:id_user, :name_address, :status)');
+                $check = $stmt->execute(['id_user' => $id_user, 'name_address' => $name_address, 'status' => $status]);
             }
-            // Thêm địa chỉ vào theo id_user
-            $stmt = $conn->prepare('INSERT INTO address(id_user, name_address, status) VALUES (:id_user, :name_address, :status)');
-            $check = $stmt->execute(['id_user' => $id_user, 'name_address' => $name_address, 'status' => $status]);
             if($check){
 
                 // Nếu đang ở sổ địa chỉ quay về sổ địa chỉ nếu đang thanh toán thì quay về chọn địa chit thanh toán

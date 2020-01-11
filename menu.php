@@ -1,4 +1,4 @@
-<section class="container" id="top">
+<div class="container" id="bg">
     <div class="row">
         <div class="col-md-6">
         <img src="./images/banner.jpg" alt="chania">
@@ -40,27 +40,27 @@
             </div>
         </div>
     </div>
-</section>
 
-<div class="container mt-5">
-    <div class="text-center font-weight-bold mb-4">THỰC ĐƠN</div>
-    <div class="card-deck">
-        <?php
-            $query="SELECT * FROM product_type WHERE status='1'";
-            $stmt=$conn->prepare($query);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            foreach($result as $row){
-                $id_type=$row['id_type'];
-        ?>
-        <div class="col-md-4 p-3">
-            <div class="card shadow">
-                <a href="index.php?page=product&id_type=<?php echo $id_type ?>"><img class="card-img-top" src="./images/<?php echo $row['images'] ?>" alt="Card image"></a>
-                <div class="card-body rounded-bottom">
-                    <a class="text-uppercase" href="index.php?page=product&id_type=<?php echo $id_type ?>"><?php echo $row['name_type'] ?></a>
+    <div class="mt-4">
+        <div class="text-center font-weight-bold mb-3">THỰC ĐƠN</div>
+        <div class="card-deck">
+            <?php
+                $query="SELECT * FROM product_type WHERE status='1'";
+                $stmt=$conn->prepare($query);
+                $stmt->execute();
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach($result as $row){
+                    $id_type=$row['id_type'];
+            ?>
+            <div class="col-md-4 p-3">
+                <div class="card shadow">
+                    <a href="index.php?page=product&id_type=<?php echo $id_type ?>"><img class="card-img-top" src="./images/<?php echo $row['images'] ?>" alt="Card image"></a>
+                    <div class="card-body rounded-bottom">
+                        <a class="text-uppercase" href="index.php?page=product&id_type=<?php echo $id_type ?>"><?php echo $row['name_type'] ?></a>
+                    </div>
                 </div>
             </div>
+            <?php } ?>
         </div>
-        <?php } ?>
     </div>
 </div>

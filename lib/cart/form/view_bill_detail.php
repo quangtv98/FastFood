@@ -1,4 +1,4 @@
-<div class="container" id="bg-cart">
+<div class="container" id="bg">
     <?php require_once "lib/function/function.php"; ?>
     <?php if(isset($_GET['id_bill']) && isset($_SESSION['id_user'])){
         $id_bill = $_GET['id_bill'];

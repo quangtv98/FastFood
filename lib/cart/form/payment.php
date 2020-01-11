@@ -8,11 +8,12 @@
         $user=$stmt->fetch();
 
         // Lấy ra địa chỉ đã chọn để giao hàng
+        $id_address = $_SESSION['id_address'];
         $stmt=$conn->prepare('SELECT * FROM address WHERE id_address=:id_address');
-        $stmt->execute(['id_address' => 1]);
+        $stmt->execute(['id_address' => $id_address]);
         $address=$stmt->fetch(); ?>
 
-        <div class="container" id="bg-cart">
+        <div class="container" id="bg">
             <h5><strong>3. Chọn hình thức thanh toán</strong></h5>
             <div class="d-lex row mt-3">
                 <div class="col-md-5">

@@ -1,4 +1,4 @@
-<div class="container text-center" id="bg-cart">    
+<div class="container text-center" id="bg">    
     <div class="pb-3" id="font-color">
         <h3 class="text-uppercase">Các cơ sở của cửa hàng</h3>
     </div>

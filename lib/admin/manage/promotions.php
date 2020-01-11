@@ -107,7 +107,7 @@
                 $row=$stmt->fetch();
                 $total_record=$row['total_record'];
                 if($total_record > 0){ ?>
-                <table class="table-bordered show col-md-12 text-center">
+                <table class="table-bordered table-hover show col-md-12 text-center">
                     <thead>
                         <th>Tên CT</th>
                         <th>Loại KM</th>
@@ -133,7 +133,7 @@
                         }
                         // Tìm Start
                         $start = ($current_page - 1) * $limit;
-                        $stmt = $conn->prepare('SELECT * FROM promotions ORDER BY date_start DESC LIMIT :start, :limit');
+                        $stmt = $conn->prepare('SELECT * FROM promotions ORDER BY id_promo DESC LIMIT :start, :limit');
                         $stmt->bindValue(':start', $start, PDO::PARAM_INT);
                         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
                         $stmt -> execute();

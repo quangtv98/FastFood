@@ -1,10 +1,10 @@
-<div class="d-flex justify-content-center" id="top">
-    <img src="./images/delivery.jpg" width="75%" height="350px" alt="First slide">
-</div>
+<div class="container" id="bg">
+    <div class="d-flex justify-content-center mt-3">
+        <img src="./images/delivery.jpg" width="100%" height="350px" alt="First slide">
+    </div>
 
-<div class="container pb-5" id="font-color">
-    <h3 class="text-center text-uppercase">Điều kiện áp dụng</h3>
-    <div class="d-flex row justify-content-center">
+    <h3 class="text-center text-uppercase" id="font-color">Điều kiện áp dụng</h3>
+    <div class="d-flex row justify-content-center" id="font-color">
         <div class="col-md-5">
             <ul>
                 <li><h5>Áp dụng cho các hóa đơn trên 100,000<u>đ</u></h5></li>

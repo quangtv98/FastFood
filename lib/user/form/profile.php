@@ -1,4 +1,4 @@
-<div class="container text-center" id="top">
+<div class="container text-center" id="bg">
     <div id="font-color" class="pb-3">
         <h3 class="text-uppercase">Hồ sơ cá nhân</h3>
     </div>
@@ -46,12 +46,12 @@
         <div class="col-md-8 m-auto">
             <div class="row p-3">
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="change-password">
+                    <input type="checkbox" class="custom-control-input" id="change-password"<?php if(isset($_SESSION['error'])){ echo 'checked';}?>>
                     <label class="custom-control-label" for="change-password"><strong>Đổi mật khẩu</strong></label>
                 </div>
             </div>
         </div>
-        <div class="col-md-8 m-auto p-3" id="update-password" style="display: none">
+        <div class="col-md-8 m-auto p-3" id="update-password" <?php if(!isset($_SESSION['error'])){ echo 'style="display: none"';}?>>
             <form action="lib/user/process/change_pass.php" method="POST">
                 <div class="row mt-n3">
                     <div class="col-md-9">

@@ -15,7 +15,7 @@
         $stmt->execute(['id_user' => $id_user]);
         $result=$stmt->fetchALL(PDO::FETCH_ASSOC); ?>
 
-        <div class="container" id="bg-cart">
+        <div class="container" id="bg">
             <h5><strong>2. Địa chỉ giao hàng</strong></h5>
             <?php if(count($result) > 0){ ?>
             <h6>Chọn địa chỉ giao hàng có sẵn bên dưới :</h6>
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <input type="submit" name="submit" class="btn btn-danger btn-sm px-4" value="Giao đến địa chỉ này">
+                            <input type="submit" name="submit" class="btn btn-danger btn-sm px-4" value="Thêm địa chỉ">
                         </div>
                     </div>
                 </form>

@@ -1,4 +1,4 @@
-<div class="container text-center p-0" id="bg-cart">
+<div class="container text-center p-0" id="bg">
     <div class="text-center pb-3">
         <h3 class="text-uppercase" id="font-color">Thông báo</h3>
     </div>
