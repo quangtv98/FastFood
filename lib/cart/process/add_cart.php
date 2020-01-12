@@ -1,8 +1,7 @@
 <?php
     session_start();
     require_once "../../function/connect.php";
-    if(isset($_POST['submit_payment']) || isset($_POST['submit_add']) || isset($_GET['action'])){
-
+    if(isset($_POST['submit_payment']) || isset($_POST['submit_add'])){
         $id_pro=$_GET['id_pro'];
         $qty = addslashes($_POST['qty']);
         
@@ -16,7 +15,6 @@
                 $stmt=$conn->prepare('UPDATE cart SET qty=:qty WHERE id_pro=:id_pro AND id_user=:id_user');
                 $stmt->execute(['qty' => $qty, 'id_pro' => $id_pro, 'id_user' => $id_user]);
             }
-
             // Nếu người dùng chọn thanh toán
             if(isset($_POST['submit_payment'])){
                 if(isset($_SESSION['id_user'])){
@@ -54,7 +52,7 @@
             }
             
             // Nếu người dùng chọn thanh toán
-            if(isset($_POST['submit_payment']) || isset($_GET['action'])){
+            if(isset($_POST['submit_payment'])){
                 if(isset($_SESSION['id_user'])){
                     header("location:../../../index.php?page=delivery_address");
                 }else{

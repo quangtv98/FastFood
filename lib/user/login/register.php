@@ -14,7 +14,7 @@
         $_SESSION['email']=$email;
         $_SESSION['phone']=$phone;
             
-        $stmt=$conn->prepare('SELECT email FROM user WHERE email=:email AND phone=:phone');
+        $stmt=$conn->prepare('SELECT email, phone FROM user WHERE email=:email OR phone=:phone');
         $stmt->execute(['email' => $email, 'phone' => $phone]);
         $num=$stmt->rowCount();
 
@@ -35,7 +35,7 @@
                 $stmt=$conn->prepare('INSERT INTO user(username,email,phone,password,created_at) VALUES (:username, :email, :phone, :password_md5, :created_at)');
                 $data=array('username'=>$username, 'email'=>$email, 'phone'=>$phone, 'password_md5'=>$password_md5, 'created_at' => $created_at);
                 $check=$stmt->execute($data);
-
+                $check = true;
                 if($check){
                     $id_user = $conn->lastInsertId();
                     $_SESSION['id_user'] = $id_user;
@@ -47,19 +47,21 @@
 
                     if(isset($_SESSION['cart'])){
                         $query="SELECT id_pro,name_pro,price,images FROM product WHERE id_pro IN (";
-                            foreach($_SESSION['cart'] as $id_pro => $value) { 
+                        foreach($_SESSION['cart'] as $id_pro => $value) { 
                                 $query.=$id_pro.","; 
-                            } 
-                        $query=substr($query, 0, -1).")";
+                            }
+                        $query=rtrim($query,',').")";
+                        // $query=substr($query, 0, -1).")";
+                        
+                        // var_dump($query); exit();
                         $stmt=$conn->prepare($query);
                         $stmt->execute();
                         $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
-                            
                         // insert và giỏ hàng 
                         foreach($result as $row){
                             $id_pro=$row['id_pro'];
                             $qty=$_SESSION['cart'][$id_pro]['qty'];
-                            $query="INSERT INTO cart(id_user,id_pro, qty) VALUES (:id_user,:id_pro,:qty)";
+                            $query="INSERT INTO cart(id_user,id_pro,qty) VALUES (:id_user,:id_pro,:qty)";
                             $stmt=$conn->prepare($query);
                             $stmt->execute(['id_user' => $id_user, 'id_pro' => $id_pro, 'qty' => $qty]);
                         }

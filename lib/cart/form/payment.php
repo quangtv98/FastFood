@@ -72,7 +72,8 @@
                                 foreach($_SESSION['cart'] as $id_pro => $value) { 
                                     $query.=$id_pro.","; 
                                 } 
-                            $query=substr($query, 0, -1).")";
+                            $query=rtrim($query,',').")";
+                            // $query=substr($query, 0, -1).")";
                             $stmt=$conn->prepare($query);
                             $stmt->execute();
                             $result=$stmt->fetchAll(PDO::FETCH_ASSOC); ?>

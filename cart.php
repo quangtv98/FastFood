@@ -9,7 +9,8 @@
             foreach($_SESSION['cart'] as $id_pro => $value) { 
                 $query.=$id_pro.","; 
             } 
-        $query=substr($query, 0, -1).")";
+        $query=rtrim($query,',').")";
+        // $query=substr($query, 0, -1).")";
         $stmt=$conn->prepare($query);
         $stmt->execute();
         $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -89,7 +90,7 @@
                     <td class="text-left"><button type="submit" name="submit" class="btn btn-danger btn-sm">Cập nhật lại giỏ hàng</button></td>
                     <td>Tổng tiền:</td>
                     <td><?php echo number_format(round($total_price,-3)) ?> <u>đ</u></td>
-                    <td><a href="lib/cart/process/add_cart.php?action" class="btn btn-danger btn-sm px-3">Thanh toán</a></td>
+                    <td><a href="lib/cart/process/check_login_when_payment.php" class="btn btn-danger btn-sm px-3">Thanh toán</a></td>
                 </tr>
                 </tr>
                 <tr>

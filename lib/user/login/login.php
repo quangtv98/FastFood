@@ -55,7 +55,8 @@
                             foreach($_SESSION['cart'] as $id_pro => $value) { 
                                 $query.=$id_pro.","; 
                             } 
-                        $query=substr($query, 0, -1).")";
+                        $query=rtrim($query,',').")";
+                        // $query=substr($query, 0, -1).")";
                         $stmt=$conn->prepare($query);
                         $stmt->execute();
                         $result_s=$stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -76,7 +77,7 @@
                                 $id_pro=$row['id_pro'];
                                 if((in_array($id_pro, $arr_id, FALSE))==false){
                                     $qty=$_SESSION['cart'][$id_pro]['qty'];
-                                    $query="INSERT INTO cart(id_user,id_pro, qty) VALUES (:id_user,:id_pro,:qty)";
+                                    $query="INSERT INTO cart(id_user,id_pro,qty) VALUES (:id_user,:id_pro,:qty)";
                                     $stmt=$conn->prepare($query);
                                     $stmt->execute(['id_user' => $id_user, 'id_pro' => $id_pro, 'qty' => $qty]);
                                 }
@@ -87,7 +88,7 @@
                             foreach($result_s as $row){
                                 $id_pro=$row['id_pro'];
                                 $qty=$_SESSION['cart'][$id_pro]['qty'];
-                                $query="INSERT INTO cart(id_user,id_pro, qty) VALUES (:id_user,:id_pro,:qty)";
+                                $query="INSERT INTO cart(id_user,id_pro,qty) VALUES (:id_user,:id_pro,:qty)";
                                 $stmt=$conn->prepare($query);
                                 $stmt->execute(['id_user' => $id_user, 'id_pro' => $id_pro, 'qty' => $qty]);
                             }
