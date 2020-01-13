@@ -12,7 +12,7 @@
             <div class="clearfix">
                 <span class="float-left">Xem Chi tiết đơn hàng - <strong><?php echo status_bill_user($status) ?></strong></span>
                 <?php if($status == 0){ ?>
-                <span class="float-right"><a href="lib/cart/process/cancel_bill.php?id_bill=<?php echo $id_bill ?>">Hủy đơn hàng</a></span>
+                <span class="float-right"><a href="lib/cart/process/cancel_bill.php?id_bill=<?php echo $id_bill ?>" onclick="return confirmCancel()">Hủy đơn hàng</a></span>
                 <?php } ?>
             </div>
             <div class="d-flex row p-3">

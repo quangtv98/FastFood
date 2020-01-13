@@ -14,6 +14,10 @@
             $page=$_GET['page'];
         }
 
+        if(isset($_GET['id_type'])){
+            $id_type=$_GET['id_type'];
+        }
+
         $status=$_GET['status'];
         if($status == 0){
             
@@ -44,9 +48,19 @@
         if($check){
             // Kiểm tra id truyền vào là sản phẩm thì chuyển về trang sản phẩm ngược lại chuyển về combo
             if(isset($_GET['id_pro'])){
-                header("location:../../../admin.php?action=product&product&page=$page");
+                if(isset($_GET['page'])){
+                    header("location:../../../admin.php?action=product&product&page=$page");
+                }else if(isset($_GET['id_type'])){
+                    header("location:../../../admin.php?action=product&product&id_type=$id_type");
+                }else{
+                    header("location:../../../admin.php?action=product&product");
+                }
             }else{
-                header("location:../../../admin.php?action=product&combo&page=$page");
+                if(isset($_GET['page'])){
+                    header("location:../../../admin.php?action=product&combo&page=$page");
+                }else{
+                    header("location:../../../admin.php?action=product&combo");
+                }
             }
             if($status == 0){
                 setcookie("success", "Đã ngưng bán sản phẩm này !!!", time()+1,"/","",0);
@@ -57,22 +71,29 @@
         else{
             // Kiểm tra id truyền vào là sản phẩm thì chuyển về trang sản phẩm ngược lại chuyển về combo
             if(isset($_GET['id_pro'])){
-                header("location:../../../admin.php?action=product&product&page=$page");
+                if(isset($_GET['page'])){
+                    header("location:../../../admin.php?action=product&product&page=$page");
+                }else if(isset($_GET['id_type'])){
+                    header("location:../../../admin.php?action=product&product&id_type=$id_type");
+                }else{
+                    header("location:../../../admin.php?action=product&product");
+                }
             }else{
-                header("location:../../../admin.php?action=product&combo&page=$page");
+                if(isset($_GET['page'])){
+                    header("location:../../../admin.php?action=product&combo&page=$page");
+                }else{
+                    header("location:../../../admin.php?action=product&combo");
+                }
             }
             setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
         }
     }
     else{
-        if(isset($_GET['page'])){
-            $page=$_GET['page'];
-        }
         // Kiểm tra id truyền vào là sản phẩm thì chuyển về trang sản phẩm ngược lại chuyển về combo
         if(isset($_GET['id_pro'])){
-            header("location:../../../admin.php?action=product&product&page=$page");
+            header("location:../../../admin.php?action=product&product");
         }else{
-            header("location:../../../admin.php?action=product&combo&page=$page");
+            header("location:../../../admin.php?action=product&combo");
         }
         setcookie("error", "có lỗi xảy ra trong qua trình xử lý !!!", time()+1,"/","",0);
     }

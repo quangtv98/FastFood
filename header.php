@@ -24,6 +24,12 @@
             return confirm("Bạn chắc chắn muốn xóa !!!")
         }
     </script>
+    <!-- Xác nhận thao tác hủy  -->
+    <script type="text/javascript">
+        function confirmCancel() {
+            return confirm("Bạn chắc chắn muốn hủy !!!")
+        }
+    </script>
     <!-- Hàm bổ trợ của boostrap -->
     <script>
         $(document).ready(function(){

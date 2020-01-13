@@ -276,7 +276,7 @@
                             <td><?php echo $row['qty'] ?></td>
                             <td><?php echo $row['name_type'] ?></td>
                             <td><?php echo $row['descript'] ?></td>
-                            <td><a href="lib/admin/process/change_status_product.php?id_pro=<?php echo $row['id_pro'] ?>&status=<?php echo $row['status'] ?>&page=<?php echo $_GET['page'] ?>" class="text-success"><?php echo status_active($row['status']) ?></a></td>
+                            <td><a href="lib/admin/process/change_status_product.php?id_pro=<?php echo $row['id_pro'] ?>&status=<?php echo $row['status'] ?><?php if(isset($_GET['page'])){ echo '&page='.$_GET['page'];} ?><?php if(isset($_GET['id_type'])){ echo '&id_type='.$_GET['id_type'];} ?>" class="text-success"><?php echo status_active($row['status']) ?></a></td>
                             <td><a href="" class="text-info" data-toggle="modal" data-target="<?php echo '#product'.$row['id_pro'] ?>" data-toggle="tooltip" title="Cập nhật sản phẩm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                         </tr>
                         <?php } ?>
@@ -346,7 +346,7 @@
                                     <td><?php echo $row['descript'] ?></td>
                                     <td><?php echo number_format($row['price']) ?> <u>đ</u></td>
                                     <td><?php echo $row['qty'] ?></td>
-                                    <td><a href="lib/admin/process/change_status_product.php?id_combo=<?php echo $row['id_pro'] ?>&status=<?php echo $row['status'] ?>&page=<?php echo $_GET['page'] ?>" class="text-success"><?php echo status_active($row['status']) ?></a></td>
+                                    <td><a href="lib/admin/process/change_status_product.php?id_combo=<?php echo $row['id_pro'] ?>&status=<?php echo $row['status'] ?><?php if(isset($_GET['page'])){ echo '&page='.$_GET['page'];} ?>" class="text-success"><?php echo status_active($row['status']) ?></a></td>
                                     <td><a href="" class="text-info" data-toggle="modal" data-target="<?php echo '#combo'.$row['id_pro'] ?>" data-toggle="tooltip" title="Cập nhật Combo"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                                     </tr>
                                 <?php } ?>
