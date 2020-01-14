@@ -20,76 +20,76 @@
         $row=$stmt->fetch();
         $total_record=$row['total_record'];
         if($total_record >= 1){ ?>
-            <div class="d-flex justify-content-center mt-4">
-            <table class="table-hover table-bordered col-md-12 shadow">
-                <thead>
-                    <tr>
-                        <td>Mã HĐ</td>
-                        <td>Tên kH</td>
-                        <td>SĐT</td>
-                        <td width="300px">Địa chỉ</td>
-                        <td>Tổng tiền</td>
-                        <td>Ngày tạo</td>
-                        <td>Ngày giao</td>
-                        <td>Trạng thái</td>
-                        <td width="50px">Cập nhật</td>
-                        <td width="50px">Xem</td>
-                        <td width="50px">Xóa</td>
-                    </tr>
-                </thead>
-                <tbody id="Table">
-                    <?php                      
-                        // Tính limit và current_page
-                        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                        $limit = 10;
-                        // Tính tổng số trang
-                        $total_page=ceil($total_record / $limit);
-                        // Giới hạn current_page trong khoảng 1 đến total_page
-                        if ($current_page > $total_page){
-                            $current_page = $total_page;
-                        }
-                        else if ($current_page < 1){
-                            $current_page = 1;
-                        }
-                        // Tìm Start
-                        $start = ($current_page - 1) * $limit;
-                        if(isset($_GET['status'])){
-                            $status=$_GET['status'];
-                            $stmt=$conn->prepare('SELECT * FROM bill WHERE status=:status ORDER BY id_bill DESC LIMIT :start, :limit');
-                            $stmt->bindValue(':status',$status, PDO::PARAM_INT);
-                            $stmt->bindValue(':start',$start, PDO::PARAM_INT);
-                            $stmt->bindValue(':limit',$limit, PDO::PARAM_INT);
-                        }else{
-                            $stmt=$conn->prepare('SELECT * FROM bill ORDER BY id_bill DESC LIMIT :start, :limit');
-                            $stmt->bindValue(':start', $start, PDO::PARAM_INT);
-                            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-                        }
-                        $stmt->execute();
-                        $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
-                        foreach($result as $row){
-                    ?>
-                    <tr>
-                        <td><?php echo $row['id_bill'] ?></td>
-                        <td><?php echo $row['username'] ?></td>
-                        <td><?php echo $row['phone'] ?></td>
-                        <td><?php echo $row['address'] ?></td>
-                        <td><?php echo number_format(round($row['totalprice'], -3)) ?> <u>đ</u></td>
-                        <td><?php echo date_format(date_create($row['created_at'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
-                        <td width="100px"><?php if($row['updated_at'] == '') echo "chưa giao"; else echo date_format(date_create($row['updated_at'], new DateTimeZone('Asia/Bangkok')),"d-m-Y \L\ú\c H:i") ?></td>
-                        <td><?php echo status_bill_admin($row['status']) ?></td>
-                        <td><a href="" class="text-info <?php if($row['status'] == 4 || $row['status'] == 1) echo 'isDisabled' ?>" data-toggle="modal" data-target="#<?php echo 'update'.$row['id_bill'] ?>" data-toggle="tooltip" title="Cập nhật trạng thái đơn hàng"><i class="fa fa-pencil-square-o" aria-hidden="true"> <span class="d-none d-lg-inline-block"></span></i></a></td>
-                        <td><a href="" class="text-success" data-toggle="modal" data-target="#<?php echo 'view'.$row['id_bill'] ?>" data-toggle="tooltip" title="Xem đơn hàng"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></td>
-                        <td><a href="lib/admin/process/del_bill.php?id_bill=<?php echo $row['id_bill'] ?>" class="text-danger" onclick="return confirmDel()"><i class="fa fa-trash-o px-1" aria-hidden="true"></i></a></td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-    </div>
-    <?php 
-    if($total_record > $limit){ ?>
-        <!-- Tiến hành phân trang -->
-        <?php pagination($current_page, $total_page,"admin.php?action=bill&page=") ?>
-    <?php }} ?>
+            <div class="d-flex justify-content-center my-4">
+                <table class="table-hover table-bordered col-md-12">
+                    <thead>
+                        <tr>
+                            <td>Mã HĐ</td>
+                            <td>Tên kH</td>
+                            <td>SĐT</td>
+                            <td width="300px">Địa chỉ</td>
+                            <td>Tổng tiền</td>
+                            <td>Ngày tạo</td>
+                            <td>Ngày giao</td>
+                            <td>Trạng thái</td>
+                            <td width="50px">Cập nhật</td>
+                            <td width="50px">Xem</td>
+                            <td width="50px">Xóa</td>
+                        </tr>
+                    </thead>
+                    <tbody id="Table">
+                        <?php                      
+                            // Tính limit và current_page
+                            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                            $limit = 10;
+                            // Tính tổng số trang
+                            $total_page=ceil($total_record / $limit);
+                            // Giới hạn current_page trong khoảng 1 đến total_page
+                            if ($current_page > $total_page){
+                                $current_page = $total_page;
+                            }
+                            else if ($current_page < 1){
+                                $current_page = 1;
+                            }
+                            // Tìm Start
+                            $start = ($current_page - 1) * $limit;
+                            if(isset($_GET['status'])){
+                                $status=$_GET['status'];
+                                $stmt=$conn->prepare('SELECT * FROM bill WHERE status=:status ORDER BY id_bill DESC LIMIT :start, :limit');
+                                $stmt->bindValue(':status',$status, PDO::PARAM_INT);
+                                $stmt->bindValue(':start',$start, PDO::PARAM_INT);
+                                $stmt->bindValue(':limit',$limit, PDO::PARAM_INT);
+                            }else{
+                                $stmt=$conn->prepare('SELECT * FROM bill ORDER BY id_bill DESC LIMIT :start, :limit');
+                                $stmt->bindValue(':start', $start, PDO::PARAM_INT);
+                                $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+                            }
+                            $stmt->execute();
+                            $result=$stmt->fetchAll(PDO::FETCH_ASSOC);
+                            foreach($result as $row){
+                        ?>
+                        <tr>
+                            <td><?php echo $row['id_bill'] ?></td>
+                            <td><?php echo $row['username'] ?></td>
+                            <td><?php echo $row['phone'] ?></td>
+                            <td><?php echo $row['address'] ?></td>
+                            <td><?php echo number_format(round($row['totalprice'], -3)) ?> <u>đ</u></td>
+                            <td><?php echo date_format(date_create($row['created_at'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
+                            <td width="100px"><?php if($row['updated_at'] == '') echo "chưa giao"; else echo date_format(date_create($row['updated_at'], new DateTimeZone('Asia/Bangkok')),"d-m-Y \L\ú\c H:i") ?></td>
+                            <td><?php echo status_bill_admin($row['status']) ?></td>
+                            <td><a href="" class="text-info <?php if($row['status'] == 4 || $row['status'] == 1) echo 'isDisabled' ?>" data-toggle="modal" data-target="#<?php echo 'update'.$row['id_bill'] ?>" data-toggle="tooltip" title="Cập nhật trạng thái đơn hàng"><i class="fa fa-pencil-square-o" aria-hidden="true"> <span class="d-none d-lg-inline-block"></span></i></a></td>
+                            <td><a href="" class="text-success" data-toggle="modal" data-target="#<?php echo 'view'.$row['id_bill'] ?>" data-toggle="tooltip" title="Xem đơn hàng"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a></td>
+                            <td><a href="lib/admin/process/del_bill.php?id_bill=<?php echo $row['id_bill'] ?>" class="text-danger" onclick="return confirmDel()"><i class="fa fa-trash-o px-1" aria-hidden="true"></i></a></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php 
+        if($total_record > $limit){ ?>
+            <!-- Tiến hành phân trang -->
+            <?php pagination($current_page, $total_page,"admin.php?action=bill&page=") ?>
+        <?php }} ?>
 </div>
 
 <?php 

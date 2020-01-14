@@ -6,8 +6,8 @@
             $id_user=$_SESSION['id_user'];
             $id_notify=$_GET['id_notify'];
 
-            // Xóa thông báo trong bảng notify_detail
-            $stmt=$conn->prepare('DELETE FROM notify_detail WHERE id_notify=:id_notify AND id_user=:id_user');
+            // Xóa thông báo trong bảng notify_user
+            $stmt=$conn->prepare('DELETE FROM notify_user WHERE id_notify=:id_notify AND id_user=:id_user');
             $check=$stmt->execute(['id_notify'=>$id_notify, 'id_user'=>$id_user]);
 
             if($check){

@@ -9,7 +9,7 @@
         <div id="collapseOne" class="collapse text-center <?php if(isset($_GET['add'])) echo 'show' ?>" data-parent="#accordion">
             <div class="d-flex justify-content-center mt-4">
 
-                <div class="col-md-4 border rounded shadow p-3">
+                <div class="col-md-4 border rounded p-3">
                     <form action="lib/admin/process/add_user.php" method="POST">
                         <div class="form-group">
                             <select name="status" id="" class="form-control">
@@ -69,8 +69,8 @@
                 $row=$stmt->fetch();
                 $total_record=$row['total_record'];
                 if($total_record >= 1){ ?>
-                <div class="d-flex justify-content-center mt-4">
-                    <table class="col-md-12 table-hover table-bordered shadow">
+                <div class="d-flex justify-content-center my-4">
+                    <table class="col-md-12 table-hover table-bordered">
                         <thead>
                             <tr>
                                 <td>Mã KH</td>
@@ -133,8 +133,8 @@
             <div class="form-group d-flex justify-content-center mt-4">
                 <input class="form-control w-50" id="Input_s" type="text" placeholder="Nhập thông tin nhân viên muốn tìm..">
             </div>
-            <div class="d-flex justify-content-center mt-4">
-                <table class="col-md-12 table-hover table-bordered shadow">
+            <div class="d-flex justify-content-center my-4">
+                <table class="col-md-12 table-hover table-bordered">
                     <thead>
                         <tr>
                             <td>Mã NV</td>

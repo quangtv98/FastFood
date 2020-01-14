@@ -2,12 +2,12 @@
     session_start();
     require_once "../../function/connect.php";
     if(isset($_SESSION['id_staff']) && isset($_SESSION['id_per'])){
-        if(isset($_SESSION['id_staff']) && isset($_GET['id_notify'])){
+        if(isset($_GET['id_notify'])){
             $id_staff=$_SESSION['id_staff'];
             $id_notify=$_GET['id_notify'];
 
-            // Xóa thông báo trong bảng notify_detail
-            $stmt=$conn->prepare('DELETE FROM notify_detail WHERE id_notify=:id_notify AND id_staff=:id_staff');
+            // Xóa thông báo trong bảng notify_staff
+            $stmt=$conn->prepare('DELETE FROM notify_staff WHERE id_notify=:id_notify AND id_staff=:id_staff');
             $check=$stmt->execute(['id_notify'=>$id_notify, 'id_staff'=>$id_staff]);
 
             if($check){

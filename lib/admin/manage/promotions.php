@@ -7,7 +7,7 @@
             <a class="btn btn-info btn-sm" id="button2" data-toggle="collapse" href="#collapseThree">Phí vận chuyển</a>
         </div>
 
-        <div id="collapseOne" class="container collapse mt-4 pb-4 shadow <?php if(isset($_GET['act'])) echo 'show' ?>" data-parent="#accordion">
+        <div id="collapseOne" class="container collapse mt-4 pb-4 <?php if(isset($_GET['act'])) echo 'show' ?>" data-parent="#accordion">
             <form action="lib/admin/process/add_promotions.php" method="POST">
                 <div class="d-flex row">
                     <div class="col-md-5 border p-3">
@@ -99,7 +99,7 @@
         </div>
 
         <!-- Form quản lý các chương trình khuyến mãi -->
-        <div id="collapseTwo" class="collapse text-center <?php if(isset($_GET['promotions'])) echo 'show' ?> mt-4 px-3" data-parent="#accordion">
+        <div id="collapseTwo" class="collapse text-center mt-4 <?php if(isset($_GET['promotions'])) echo 'show' ?>" data-parent="#accordion">
             <?php 
                 // Tính tổng số cột
                 $stmt=$conn->prepare('SELECT count(id_promo) AS total_record FROM promotions');
@@ -107,7 +107,7 @@
                 $row=$stmt->fetch();
                 $total_record=$row['total_record'];
                 if($total_record > 0){ ?>
-                <table class="table-bordered table-hover show col-md-12 text-center">
+                <table class="table-bordered table-hover col-md-12 text-center mb-4">
                     <thead>
                         <th>Tên CT</th>
                         <th>Loại KM</th>
@@ -155,7 +155,7 @@
             <?php 
             if($total_record > $limit){ ?>
                 <!-- Tiến hành phân trang -->
-                <?php pagination($current_page, $total_page,"admin.php?action=promotions&page=") ?>
+                <?php pagination($current_page, $total_page,"admin.php?action=promotions&promotions&page=") ?>
             <?php }} ?>
         </div>
 
@@ -287,8 +287,8 @@
         <?php } ?>
 
         <!-- Điều chỉnh phí ship -->
-        <div class="col-md-4 m-auto">
-            <div id="collapseThree" class="collapse mt-4 p-4 shadow <?php if(isset($_GET['upd_ship'])) echo 'show' ?>" data-parent="#accordion">
+        <div class="col-md-5 m-auto">
+            <div id="collapseThree" class="collapse mt-4 p-4 <?php if(isset($_GET['upd_ship'])) echo 'show' ?>" data-parent="#accordion">
             <?php 
                 $stmt=$conn->prepare('SELECT * FROM ship WHERE status=:status');
                 $stmt->execute(['status' => '1']);

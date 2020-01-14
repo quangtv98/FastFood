@@ -45,10 +45,13 @@
             $stmt->execute();
             $row=$stmt->fetch();
             $total_record=$row['total_record'];
+            if(isset($_GET['page'])){
+                $page = $_GET['page'];
+            }
             if($total_record > 0){ ?>
             <div id="collapseTwo" class="collapse text-center <?php if(isset($_GET['news'])) echo 'show' ?>" data-parent="#accordion">
-                <div class="d-flex justify-content-center mt-4">
-                    <table class="table-hover table-bordered col-md-12 shadow">
+                <div class="d-flex justify-content-center my-4">
+                    <table class="col-md-12 table-hover table-bordered">
                         <thead>
                             <tr>
                                 <td>Tiêu đề</td>
@@ -88,7 +91,7 @@
                                 <td><?php echo object($row['type_receiver']) ?></td>
                                 <td><?php echo date_format(date_create($row['date_send'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
                                 <td><a href="" class="text-info" data-toggle="modal" data-target="#<?php echo 'update'.$row['id_notify'] ?>" data-toggle="tooltip" title="Cập nhật trạng thái đơn hàng"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                                <td><a href="lib/admin/process/del_news.php?id_notify=<?php echo $row['id_notify'] ?>" class="text-danger" onclick="return confirmDel()"><i class="fa fa-trash-o px-1" aria-hidden="true"></i></a></td>
+                                <td><a href="lib/admin/process/del_news.php?id_notify=<?php echo $row['id_notify'] ?>&type_receiver=<?php echo $row['type_receiver'] ?><?php if(isset($_GET['page'])){ echo '&page='.$page;} ?>" class="text-danger" onclick="return confirmDel()"><i class="fa fa-trash-o px-1" aria-hidden="true"></i></a></td>
                             </tr>
                             <?php } ?>
                         </tbody>
@@ -96,7 +99,7 @@
                 </div>
             <?php if($total_record > $limit){ ?>
                 <!-- Tiến hành phân trang -->
-                <?php pagination($current_page, $total_page,"admin.php?action=notify&notify&page=") ?>
+                <?php pagination($current_page, $total_page,"admin.php?action=news&news&page=") ?>
             <?php }} ?>
         </div>
     </div>

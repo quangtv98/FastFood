@@ -2,7 +2,6 @@
     <div class="text-center pb-3">
         <h3 class="text-uppercase" id="font-color">Thông báo</h3>
     </div>
-    <?php include "lib/function/notify.php" ?>
     <?php 
         if(isset($_SESSION['id_user'])){
             $id_user=$_SESSION['id_user'];

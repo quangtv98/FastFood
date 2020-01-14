@@ -11,7 +11,7 @@
         <!-- form thêm loại sản phẩm -->
         <div id="collapseOne" class="collapse text-center <?php if(isset($_GET['add_type'])) echo 'show' ?>" data-parent="#accordion">
             <div class="d-flex justify-content-center mt-4">
-                <div class="col-md-4 border rounded shadow p-3">
+                <div class="col-md-4 border rounded p-3">
                     <form action="lib/admin/process/add_product_type.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <select name="status" id="" class="form-control">
@@ -37,7 +37,7 @@
         <!-- form thêm sản phẩm -->
         <div id="collapseTwo" class="collapse text-center <?php if(isset($_GET['add_pro'])) echo 'show' ?>" data-parent="#accordion">
             <div class="d-flex justify-content-center mt-4">
-                <div class="col-md-4 border rounded shadow p-3">
+                <div class="col-md-4 border rounded p-3">
                     <form action="lib/admin/process/add_product.php" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <select name="status" id="" class="form-control">
@@ -82,7 +82,7 @@
         <!-- form thêm combo sản phẩm -->
         <div id="collapseThree" class="collapse text-center <?php if(isset($_GET['add_combo'])) echo 'show' ?>" data-parent="#accordion">
             <div class="d-flex justify-content-center mt-4">
-                <div class="border rounded shadow p-3">
+                <div class="border rounded p-3">
                     <form action="lib/admin/process/add_combo.php" method="POST" enctype="multipart/form-data">
                         <div class="d-flex row px-3">
                             <div class="<?php if(isset($_SESSION['choose'])) echo 'col-md-5'; ?> border rounded p-3">
@@ -154,7 +154,7 @@
         <!-- Quản lý loại sản phẩm -->
         <div id="collapseFour" class="collapse text-center <?php if(isset($_GET['type_pro'])) echo 'show' ?>" data-parent="#accordion">
             <div class="d-flex justify-content-center mt-4">
-                <table class="table-hover table-bordered col-md-9 shadow">
+                <table class="table-hover table-bordered col-md-9">
                     <thead>
                         <tr>
                             <td height="40px">STT</td>
@@ -219,7 +219,7 @@
                 $total_record=$row['total_record'];
                 if($total_record > 0){ ?>
             <div class="d-flex justify-content-center mt-4 pb-4">
-                <table class="table-hover table-bordered col-md-12 shadow">
+                <table class="table-hover table-bordered col-md-12">
                     <thead>
                         <tr>
                             <td>Mã SP</td>
@@ -303,7 +303,7 @@
                 $total_record=$row['total_record'];
                 if($total_record > 0){ ?>
                     <div class="d-flex justify-content-center mt-4 pb-4">
-                        <table class="table-hover table-bordered col-md-12 shadow">
+                        <table class="table-hover table-bordered col-md-12">
                             <thead>
                                 <tr>
                                     <td>Mã Combo</td>
