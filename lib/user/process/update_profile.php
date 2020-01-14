@@ -2,8 +2,8 @@
     session_start();
     require_once "../../function/connect.php";
     require_once "../../function/function.php";
-    if(isset($_POST['submit'])){
-        if(isset($_SESSION['id_user'])){
+    if(isset($_SESSION['id_user'])){
+        if(isset($_POST['submit'])){
             $id_user=$_SESSION['id_user'];
             $username=trim(addslashes($_POST['username']));
             
@@ -23,6 +23,6 @@
     }
     else{
         header("location:../../../index.php");
-        setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
+        setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
     }
 ?>

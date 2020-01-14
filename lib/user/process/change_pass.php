@@ -2,8 +2,8 @@
     session_start();
     require_once "../../function/connect.php";
     require_once "../../function/function.php";
-    if(isset($_POST['submit'])){
-        if(isset($_SESSION['id_user'])){
+    if(isset($_SESSION['id_user'])){
+        if(isset($_POST['submit'])){
             $id_user=$_SESSION['id_user'];
             $password_old=addslashes($_POST['password_old']);
             $_SESSION['password_old']=$password_old;
@@ -61,9 +61,9 @@
                 setcookie("error", "Mật khẩu cũ không đúng !!!", time()+1,"/","",0);
             }
         }
-        else{
-            header("location:../../../index.php");
-            setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
-        }
+    }
+    else{
+        header("location:../../../index.php");
+        setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
     }
 ?>

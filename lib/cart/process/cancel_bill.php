@@ -18,7 +18,7 @@
         }
     }
     else{
-        header("location:../../../index.php?page=view_bill_detail&id_bill=$id_bill");
-        setcookie("error", "Có lỗi xảy ra trong quá trình xử lý !!!", time()+1,"/","",0);
+        header("location:../../../index.php");
+        setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
     }
 ?>

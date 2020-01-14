@@ -38,7 +38,7 @@
         }
     }
     else{
-        header("location:../../../admin.php?action=product&type_pro");
-        setcookie("error", "có lỗi xảy ra trong qua trình xử lý !!!", time()+1,"/","",0);
+        header("location:../../../login.php");
+        setcookie("error", "Trang bạn yêu cầu không hợp lệ !!!", time()+1,"/","",0);
     }
 ?>

@@ -115,7 +115,7 @@
                                 <td class="text-left"><span class="ml-2"><?php echo $row['email'] ?></span></td>
                                 <td><?php echo $row['phone'] ?></td>
                                 <td class="text-left"><span class="ml-2"><?php echo $row_s['name_address'] ?></span></td>
-                                <td><a href="lib/admin/process/change_status_user.php?id_user=<?php echo $row['id_user'] ?>&status=<?php echo $row['status'] ?>" class="text-success"><?php echo status_active($row['status']) ?></a></td>
+                                <td><a href="lib/admin/process/change_status_user.php?id_user=<?php echo $row['id_user'] ?>&status=<?php echo $row['status'] ?><?php if(isset($_GET['page'])){ echo '&page='.$page;} ?>" class="text-success"><?php echo status_active($row['status']) ?></a></td>
                             </tr>
                             <?php } ?>
                         </tbody>
@@ -191,7 +191,7 @@
                             <td><?php echo $row['phone'] ?></td>
                             <td><?php echo role_staff($arr_per) ?></td>
                             <td><?php echo date_format(date_create($row['created_at'], new DateTimeZone('Asia/Bangkok')),"d-m-Y") ?></td>
-                            <td><a href="lib/admin/process/change_status_staff.php?id_staff=<?php echo $row['id_staff'] ?>&status=<?php echo $row['status'] ?>" class="text-success <?php if($row_s['id_per']==1) echo 'isDisabled' ?>"><?php echo status_active($row['status']) ?></a></td>
+                            <td><a href="lib/admin/process/change_status_staff.php?id_staff=<?php echo $row['id_staff'] ?>&status=<?php echo $row['status'] ?><?php if(isset($_GET['page'])){ echo '&page='.$page;} ?>" class="text-success <?php if($row_s['id_per']==1) echo 'isDisabled' ?>"><?php echo status_active($row['status']) ?></a></td>
                             <td><a href="" class="text-primary <?php if($row_s['id_per']==1) echo 'isDisabled' ?>" data-toggle="modal" data-target="#<?php echo 'update'.$row['id_staff'] ?>" data-toggle="tooltip" title="Cập nhật chức vụ nhân viên"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                             <td><a href="lib/admin/process/del_staff.php?id_staff=<?php echo $row['id_staff'] ?>" class="text-danger <?php if($row_s['id_per']==1) echo 'isDisabled' ?>" onclick="return confirmDel()"><i class="fa fa-trash-o px-1" aria-hidden="true"></i></a></td>
                         </tr>
@@ -208,6 +208,9 @@
 </div>
 
 <?php 
+    if(isset($_GET['page'])){
+        $page = $_GET['page'];
+    }
     // Khởi tạo tất cả các form cập nhật chức vụ nhân viên
     $query="SELECT id_staff, licensed FROM staff_per WHERE id_per != '1'";
     $stmt=$conn->prepare($query);
@@ -230,7 +233,7 @@
                 
                 <!-- Modal body -->
                 <div class="col-md-12 modal-body text-center">
-                    <form action="lib/admin/process/update_staff_per.php?id_staff=<?php echo $id_staff ?>&licensed=<?php echo $licensed ?>" method="POST">
+                    <form action="lib/admin/process/update_staff_per.php?id_staff=<?php echo $id_staff ?>&licensed=<?php echo $licensed ?><?php if(isset($_GET['page'])){ echo '&page='.$page;} ?>" method="POST">
                     <div class="form-group pl-5">
                     <?php 
                         // Đánh checked vào các ô là chức vụ hiện tại của nhân viên
