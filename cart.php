@@ -39,11 +39,12 @@
                         // Kiểm tra xem có chương trình khuyến mãi không ? Nếu có thì hiển thị giá khuyến mãi ngược lại trả về giá gốc
                         $stmt=$conn->prepare('SELECT count(id_promo) AS total_record FROM promotions WHERE status=:status');
                         $stmt->execute(['status' => 2]);
-                        $total_record = $stmt->fetch();
-                        if(count($total_record) > 0){
+                        $result = $stmt->fetch();
+                        $total_record = $result['total_record'];
+                        if($total_record > 0){
                             $stmt_1=$conn->prepare('SELECT * FROM promotions WHERE status=:status');
                             $stmt_1->execute(['status' => 2]);
-                            $row_1 = $stmt_1->fetch();
+                            $row_1 = $stmt_1->fetch(PDO::FETCH_ASSOC);
                             $type_promo = $row_1['type_promo'];
 
                             if($type_promo == 1){

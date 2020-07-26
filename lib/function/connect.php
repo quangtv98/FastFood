@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
     $host     = "d9c88q3e09w6fdb2.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
     $username = "jxu1iwsjkwyds812";
@@ -12,8 +12,8 @@
     catch(PDOException $e){
         echo "Lỗi kết nối đến server !!!".$e->getMessage();
     }
-?>
-<!-- <?php
+?> -->
+<?php
 
     $host = "localhost";
     $username = "root";
@@ -27,4 +27,4 @@
     catch(PDOException $e){
         echo "Lỗi kết nối đến server !!!".$e->getMessage();
     }
-?> -->
+?>

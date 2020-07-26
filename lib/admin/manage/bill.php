@@ -25,7 +25,7 @@
                     <thead>
                         <tr>
                             <td>Mã HĐ</td>
-                            <td>Tên kH</td>
+                            <td>Tên KH</td>
                             <td>SĐT</td>
                             <td width="300px">Địa chỉ</td>
                             <td>Tổng tiền</td>

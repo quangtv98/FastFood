@@ -8,8 +8,8 @@
                 foreach($_POST['choose'] as $key => $id_pro){
                     $_SESSION['choose'][$id_pro]=array('qty' => 1);
                 }
-            }else if(count($_POST['choose']) == 0){
-                setcookie("warning", "Bạn chưa chọn sản phẩm vào combo !!!", time()+1,"/","",0);
+            }else{
+                setcookie("warning", "Combo phải có trên 2 sản phẩm !!!", time()+1,"/","",0);
             }
             header("location:../../../admin.php?action=product&add_combo");
         }

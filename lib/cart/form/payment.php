@@ -20,13 +20,15 @@
                     <form action="lib/cart/process/payment.php" method="POST">
                         <div class="border p-3">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="customRadio_1" name="method" value="1" checked>
+                               
                                 <label class="custom-control-label" for="customRadio_1">Thanh toán tiền mặt khi nhận hàng</label>
+                                <input type="radio" class="custom-control-input" id="customRadio_1" name="method" value="1" checked>
                             </div>
                             <br/>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="customRadio_2" name="method" value="2">
-                                <label class="custom-control-label" for="customRadio_2">Thanh toán bằng thẻ ATM nội địa / Internet Banking</label>
+                            <label class="custom-control-label" for="customRadio_2">Thanh toán bằng thẻ ATM nội địa / Internet Banking</label>
+                            <input type="radio" class="custom-control-input" id="customRadio_2" name="method" value="2">
+                               
                             </div>
                             <div class="col-md-12 border p-3 mt-3" id="atm" style="display: none">
                                 <div class="d-flex row">
